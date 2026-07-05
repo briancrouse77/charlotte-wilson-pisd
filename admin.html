@@ -478,6 +478,11 @@
 
 <div id="toast"></div>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
 <script>
 /* ==========================================================
    ADMIN — Charlotte Wilson for Princeton ISD
@@ -486,6 +491,23 @@ const PW         = 'panther2026';
 const KEY_VOLS   = 'cw_volunteers';
 const KEY_ALERTS = 'cw_alert_signups';
 const KEY_META   = 'cw_admin_meta';
+
+/* ── Offline seed (only used when Firestore unavailable) ── */
+function seed() {
+  const v = JSON.parse(localStorage.getItem(KEY_VOLS)||'[]');
+  const a = JSON.parse(localStorage.getItem(KEY_ALERTS)||'[]');
+  if (v.length || a.length) return;
+  function ago(d){ return new Date(Date.now()-d*86400000).toISOString(); }
+  _alerts = [
+    { name:'Sarah Mitchell', email:'sarah.m@gmail.com', phone:'972-555-0101', zip:'75407', type:'election_alert', ts:ago(2) },
+    { name:'James Torres',   email:'jtorres@yahoo.com', phone:'',             zip:'75407', type:'election_alert', ts:ago(1) },
+  ];
+  _vols = [
+    { name:'Marcus Webb',    email:'mwebb@gmail.com',    phone:'972-555-0234', zip:'75407', interests:['doors','sign'],         ts:ago(3) },
+    { name:'Priya Sharma',   email:'psharma@outlook.com',phone:'',             zip:'75407', interests:['calls','social'],       ts:ago(1) },
+    { name:'David Castillo', email:'dcastillo@gmail.com',phone:'214-555-0167', zip:'75407', interests:['sign','events','host'], ts:ago(0.5) },
+  ];
+}
 
 const INTERESTS = {
   doors:  { label: 'Knock Doors',  icon: '🚪', cls: 'doors'  },
@@ -506,28 +528,48 @@ const NEXT_ACTION = {
   host:   'Plan house meeting',
 };
 
-/* ── seed demo data if empty ── */
-function seed() {
-  const v = ls(KEY_VOLS), a = ls(KEY_ALERTS);
-  if (v.length || a.length) return;
-  save(KEY_ALERTS, [
-    { name:'Sarah Mitchell', email:'sarah.m@gmail.com', phone:'972-555-0101', zip:'75407', type:'election_alert', ts: ago(2) },
-    { name:'James Torres',   email:'jtorres@yahoo.com', phone:'',             zip:'75407', type:'election_alert', ts: ago(1) },
-    { name:'Kim Nguyen',     email:'knguyen@hotmail.com',phone:'972-555-0188',zip:'75442', type:'election_alert', ts: now() },
-  ]);
-  save(KEY_VOLS, [
-    { name:'Marcus Webb',    email:'mwebb@gmail.com',    phone:'972-555-0234', zip:'75407', interests:['doors','sign'],          ts: ago(3) },
-    { name:'Priya Sharma',   email:'psharma@outlook.com',phone:'',             zip:'75407', interests:['calls','social'],        ts: ago(1) },
-    { name:'David Castillo', email:'dcastillo@gmail.com',phone:'214-555-0167', zip:'75407', interests:['sign','events','host'],  ts: ago(0.5) },
-    { name:'Lisa Park',      email:'lpark@icloud.com',   phone:'972-555-0319', zip:'75407', interests:['doors','calls','events'],ts: now() },
-  ]);
+/* ── In-memory data stores (kept fresh by Firestore listeners) ── */
+let _vols   = [];
+let _alerts = [];
+
+function getVols()   { return _vols.slice().sort((a,b)=>new Date(b.ts)-new Date(a.ts)); }
+function getAlerts() { return _alerts.slice().sort((a,b)=>new Date(b.ts)-new Date(a.ts)); }
+
+/* ── Firestore listeners — start after login ── */
+function startListeners() {
+  const useFirestore = typeof db !== 'undefined';
+
+  if (useFirestore) {
+    db.collection('cw_volunteers').orderBy('ts','desc')
+      .onSnapshot(snap => {
+        _vols = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        localStorage.setItem(KEY_VOLS, JSON.stringify(_vols));
+        refreshAll();
+      }, err => {
+        console.warn('Firestore vols error, using localStorage:', err);
+        _vols = JSON.parse(localStorage.getItem(KEY_VOLS) || '[]');
+        refreshAll();
+      });
+
+    db.collection('cw_alert_signups').orderBy('ts','desc')
+      .onSnapshot(snap => {
+        _alerts = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        localStorage.setItem(KEY_ALERTS, JSON.stringify(_alerts));
+        refreshAll();
+      }, err => {
+        console.warn('Firestore alerts error, using localStorage:', err);
+        _alerts = JSON.parse(localStorage.getItem(KEY_ALERTS) || '[]');
+        refreshAll();
+      });
+  } else {
+    // Offline fallback
+    _vols   = JSON.parse(localStorage.getItem(KEY_VOLS)   || '[]');
+    _alerts = JSON.parse(localStorage.getItem(KEY_ALERTS) || '[]');
+    seed();
+    refreshAll();
+  }
 }
-function ago(days) { return new Date(Date.now() - days*86400000).toISOString(); }
-function now()     { return new Date().toISOString(); }
-function ls(k)     { return JSON.parse(localStorage.getItem(k) || '[]'); }
-function save(k,v) { localStorage.setItem(k, JSON.stringify(v)); }
-function getVols()   { return ls(KEY_VOLS).slice().reverse(); }
-function getAlerts() { return ls(KEY_ALERTS).slice().reverse(); }
+
 
 /* ── meta ── */
 function meta()         { return JSON.parse(localStorage.getItem(KEY_META)||'{}'); }
@@ -570,7 +612,7 @@ function tryLogin(){
   if(document.getElementById('pw-input').value===PW){
     document.getElementById('login-screen').style.display='none';
     document.getElementById('app').style.display='flex';
-    seed(); refreshAll();
+    startListeners();
   } else {
     document.getElementById('login-error').style.display='block';
     document.getElementById('pw-input').value='';
