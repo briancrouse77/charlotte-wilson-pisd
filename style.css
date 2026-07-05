@@ -91,8 +91,8 @@ img { max-width: 100%; display: block; }
   text-align: center;
 }
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(107, 16, 32, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(107, 16, 32, 0.55);
   background: linear-gradient(135deg, var(--maroon-mid), var(--maroon));
 }
 @media (max-width: 480px) {
@@ -155,19 +155,20 @@ img { max-width: 100%; display: block; }
 
 .section-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
   color: var(--maroon-deep);
-  line-height: 1.2;
+  line-height: 1.15;
   margin-bottom: 16px;
 }
 .section-title.center { text-align: center; }
 
 .section-sub {
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   color: var(--text-muted);
-  max-width: 680px;
-  margin-bottom: 56px;
+  max-width: 740px;
+  margin-bottom: 52px;
+  line-height: 1.75;
 }
 .section-sub.center { text-align: center; margin-left: auto; margin-right: auto; }
 
@@ -559,11 +560,11 @@ img { max-width: 100%; display: block; }
 
 .about-text h2 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 800;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  font-weight: 900;
   color: var(--maroon-deep);
   margin-bottom: 24px;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 .about-text p {
   color: var(--text-muted);
@@ -628,10 +629,11 @@ img { max-width: 100%; display: block; }
 }
 .platform-card h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: var(--maroon-deep);
   margin-bottom: 12px;
+  line-height: 1.25;
 }
 .platform-card p {
   font-size: 0.95rem;
@@ -768,10 +770,11 @@ img { max-width: 100%; display: block; }
 
 .alert-box h2 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
   color: var(--white);
   margin-bottom: 16px;
+  line-height: 1.15;
 }
 .alert-box p {
   color: rgba(255,255,255,0.7);
