@@ -3,6 +3,35 @@
    Firestore-backed with localStorage fallback
    ===================================================== */
 
+// ── Random Hero Image Rotation ────────────────────────
+(function () {
+  const HEROES = [
+    'hero-stadium.jpg',
+    'hero-watertower.jpg',
+    'hero-mainstreet.jpg',
+    'hero-prairie.jpg',
+    'hero-school.jpg',
+    'hero-community.jpg',
+  ];
+  // Pick a random one that's different from the CSS default (hero-bg.jpg)
+  const pick = HEROES[Math.floor(Math.random() * HEROES.length)];
+  const heroEl = document.getElementById('hero');
+  if (heroEl) {
+    // Fade out → swap → fade in
+    heroEl.style.transition = 'opacity 0.5s ease';
+    heroEl.style.opacity = '0';
+    // Preload then apply
+    const img = new Image();
+    img.onload = () => {
+      heroEl.style.backgroundImage = `url('${pick}')`;
+      heroEl.style.opacity = '1';
+    };
+    img.onerror = () => { heroEl.style.opacity = '1'; }; // fallback graceful
+    img.src = pick;
+  }
+})();
+
+
 // ── Firestore helpers ──────────────────────────────────
 function fsAdd(collection, data) {
   if (typeof db !== 'undefined') {
