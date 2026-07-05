@@ -21,7 +21,7 @@
       --sidebar-bg:   #1e0a10;
       --panel-bg:     #f5f0eb;
       --border:       rgba(107,16,32,0.15);
-      --green:        #16a34a;
+      --green:        #15803d;
       --green-bg:     #dcfce7;
       --red:          #dc2626;
       --red-bg:       #fee2e2;
@@ -29,498 +29,315 @@
       --blue-bg:      #dbeafe;
       --radius:       10px;
       --tr:           0.25s ease;
+
+      /* Interest colors */
+      --c-doors:  #7c3aed; --c-doors-bg:  #ede9fe;
+      --c-calls:  #0369a1; --c-calls-bg:  #e0f2fe;
+      --c-sign:   #b45309; --c-sign-bg:   #fef3c7;
+      --c-events: #15803d; --c-events-bg: #dcfce7;
+      --c-social: #be185d; --c-social-bg: #fce7f3;
+      --c-host:   #9a3412; --c-host-bg:   #ffedd5;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--panel-bg); color: var(--charcoal); }
+    html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--panel-bg); color: var(--charcoal); overflow: hidden; }
 
-    /* ── LOGIN SCREEN ── */
+    /* ─── LOGIN ─── */
     #login-screen {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       height: 100vh;
       background: linear-gradient(145deg, var(--maroon-deep), var(--maroon));
     }
     .login-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 48px 40px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
+      background: var(--white); border-radius: 16px; padding: 48px 40px;
+      width: 100%; max-width: 400px; text-align: center;
       box-shadow: 0 24px 60px rgba(0,0,0,0.35);
     }
     .login-star { font-size: 2.4rem; color: var(--amber-light); margin-bottom: 8px; }
-    .login-card h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      color: var(--maroon-deep);
-      margin-bottom: 4px;
-    }
-    .login-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 28px; }
+    .login-card h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--maroon-deep); margin-bottom: 4px; }
+    .login-card p  { font-size: 0.85rem; color: var(--muted); margin-bottom: 28px; }
     .login-card input {
-      width: 100%;
-      padding: 13px 18px;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      margin-bottom: 14px;
-      outline: none;
-      transition: var(--tr);
-      letter-spacing: 0.08em;
-      text-align: center;
+      width: 100%; padding: 13px 18px; border: 1px solid var(--border); border-radius: 50px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; margin-bottom: 14px; outline: none;
+      transition: var(--tr); letter-spacing: 0.08em; text-align: center;
     }
     .login-card input:focus { border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(107,16,32,0.1); }
     .login-btn {
-      width: 100%;
-      padding: 13px;
+      width: 100%; padding: 13px;
       background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
-      color: var(--white);
-      border: none;
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: var(--tr);
+      color: var(--white); border: none; border-radius: 50px;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: var(--tr);
     }
-    .login-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-    .login-error {
-      margin-top: 14px;
-      font-size: 0.85rem;
-      color: var(--red);
-      display: none;
-    }
+    .login-btn:hover { opacity: 0.9; }
+    .login-error { margin-top: 14px; font-size: 0.85rem; color: var(--red); display: none; }
 
-    /* ── SHELL ── */
-    #app { display: none; height: 100vh; overflow: hidden; flex-direction: row; }
+    /* ─── SHELL ─── */
+    #app { display: none; height: 100vh; flex-direction: row; overflow: hidden; }
 
-    /* ── SIDEBAR ── */
+    /* ─── SIDEBAR ─── */
     #sidebar {
-      width: 240px;
-      flex-shrink: 0;
+      width: 230px; flex-shrink: 0;
       background: var(--sidebar-bg);
-      display: flex;
-      flex-direction: column;
-      padding: 28px 0;
-      overflow-y: auto;
+      display: flex; flex-direction: column;
+      padding: 24px 0; overflow-y: auto;
     }
-    .sidebar-logo {
-      padding: 0 24px 28px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .sidebar-star { color: var(--amber-light); font-size: 1.4rem; }
-    .sidebar-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--white);
-      margin-top: 4px;
-      line-height: 1.2;
-    }
-    .sidebar-sub { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 2px; letter-spacing: 0.05em; }
+    .sidebar-logo { padding: 0 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .sidebar-star { color: var(--amber-light); font-size: 1.3rem; }
+    .sidebar-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 800; color: var(--white); margin-top: 4px; line-height: 1.2; }
+    .sidebar-sub  { font-size: 0.66rem; color: rgba(255,255,255,0.35); margin-top: 2px; letter-spacing: 0.05em; }
 
-    .sidebar-nav { padding: 20px 0; flex: 1; }
-    .sidebar-section-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-      padding: 0 24px;
-      margin-bottom: 8px;
-      margin-top: 20px;
+    .sidebar-nav { padding: 16px 0; flex: 1; }
+    .sidebar-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); padding: 0 20px; margin-bottom: 6px; margin-top: 18px;
     }
-    .sidebar-section-label:first-child { margin-top: 0; }
+    .sidebar-label:first-child { margin-top: 0; }
     .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 24px;
-      color: rgba(255,255,255,0.6);
-      font-size: 0.88rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--tr);
-      border-left: 3px solid transparent;
-      position: relative;
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 20px; color: rgba(255,255,255,0.58); font-size: 0.86rem; font-weight: 500;
+      cursor: pointer; transition: var(--tr); border-left: 3px solid transparent;
     }
     .nav-item:hover { color: var(--white); background: rgba(255,255,255,0.05); }
-    .nav-item.active {
-      color: var(--white);
-      background: rgba(201,124,42,0.12);
-      border-left-color: var(--amber);
-    }
-    .nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .nav-item.active { color: var(--white); background: rgba(201,124,42,0.14); border-left-color: var(--amber); }
+    .nav-icon { width: 18px; text-align: center; font-size: 0.95rem; }
     .nav-badge {
-      margin-left: auto;
-      background: var(--maroon-light);
-      color: var(--white);
-      font-size: 0.68rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 50px;
-      min-width: 20px;
-      text-align: center;
+      margin-left: auto; background: var(--maroon-light); color: var(--white);
+      font-size: 0.66rem; font-weight: 700; padding: 2px 7px; border-radius: 50px; min-width: 20px; text-align: center;
     }
     .nav-badge.new { background: var(--amber); color: var(--charcoal); }
 
-    .sidebar-footer {
-      padding: 20px 24px 0;
-      border-top: 1px solid rgba(255,255,255,0.07);
-    }
+    .sidebar-footer { padding: 16px 20px 0; border-top: 1px solid rgba(255,255,255,0.07); }
     .logout-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.4);
-      cursor: pointer;
-      transition: var(--tr);
-      background: none;
-      border: none;
-      font-family: 'Inter', sans-serif;
-      padding: 0;
+      display: flex; align-items: center; gap: 8px; font-size: 0.8rem;
+      color: rgba(255,255,255,0.35); cursor: pointer; transition: var(--tr);
+      background: none; border: none; font-family: 'Inter', sans-serif; padding: 0;
     }
-    .logout-btn:hover { color: rgba(255,255,255,0.7); }
+    .logout-btn:hover { color: rgba(255,255,255,0.65); }
 
-    /* ── MAIN AREA ── */
-    #main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+    /* ─── MAIN ─── */
+    #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-    /* ── TOP BAR ── */
+    /* ─── TOPBAR ─── */
     #topbar {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 0 32px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 0 28px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
     }
-    .topbar-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--maroon-deep);
-    }
-    .topbar-actions { display: flex; gap: 10px; align-items: center; }
+    .topbar-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 800; color: var(--maroon-deep); }
+    .topbar-right { display: flex; gap: 10px; align-items: center; }
     .topbar-search {
-      padding: 8px 16px;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.88rem;
-      outline: none;
-      transition: var(--tr);
-      width: 220px;
-      color: var(--charcoal);
-      background: var(--panel-bg);
+      padding: 7px 16px; border: 1px solid var(--border); border-radius: 50px;
+      font-family: 'Inter', sans-serif; font-size: 0.85rem; outline: none;
+      transition: var(--tr); width: 200px; color: var(--charcoal); background: var(--panel-bg);
     }
-    .topbar-search:focus { border-color: var(--maroon); width: 280px; }
+    .topbar-search:focus { border-color: var(--maroon); width: 260px; }
     .export-btn {
-      padding: 8px 18px;
-      background: none;
-      border: 1px solid var(--maroon);
-      color: var(--maroon);
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--tr);
+      padding: 7px 16px; background: none; border: 1px solid var(--maroon); color: var(--maroon);
+      border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; transition: var(--tr); white-space: nowrap;
     }
     .export-btn:hover { background: var(--maroon); color: var(--white); }
 
-    /* ── CONTENT ── */
-    #content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 32px;
-    }
+    /* ─── CONTENT ─── */
+    #content { flex: 1; overflow-y: auto; padding: 24px 28px; }
 
-    /* ── PANEL ── */
     .panel { display: none; }
     .panel.active { display: block; }
 
-    /* ── STATS ROW ── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-    @media (max-width: 900px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
-    .stat-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 20px 22px;
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 8px rgba(107,16,32,0.05);
-    }
-    .stat-card__label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .stat-card__value { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--maroon-deep); line-height: 1; }
-    .stat-card__sub { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+    /* ─── STAT CARDS ─── */
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 22px; }
+    .stat-card { background: var(--white); border-radius: var(--radius); padding: 18px 20px; border: 1px solid var(--border); }
+    .stat-card__label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .stat-card__value { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 800; color: var(--maroon-deep); line-height: 1; }
+    .stat-card__sub { font-size: 0.72rem; color: var(--muted); margin-top: 5px; }
     .stat-card--amber .stat-card__value { color: var(--amber); }
-    .stat-card--green .stat-card__value { color: var(--green); }
+    .stat-card--green .stat-card__value  { color: var(--green); }
 
-    /* ── TABLE ── */
-    .table-wrap {
-      background: var(--white);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(107,16,32,0.05);
+    /* ─── INTEREST SUMMARY BAR ─── */
+    .interest-bar {
+      display: grid; grid-template-columns: repeat(6,1fr); gap: 10px; margin-bottom: 20px;
     }
-    .table-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--border);
+    .interest-tile {
+      background: var(--white); border-radius: var(--radius); padding: 14px 12px;
+      text-align: center; border: 2px solid transparent; cursor: pointer; transition: var(--tr);
     }
-    .table-header h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--maroon-deep);
-    }
-    .table-header-right { display: flex; gap: 8px; align-items: center; }
+    .interest-tile:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .interest-tile.selected { box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+    .interest-tile.all-tile  { background: var(--panel-bg); border-color: var(--border); }
+    .interest-tile.all-tile.selected { border-color: var(--maroon); background: var(--white); }
+
+    .interest-tile[data-interest="doors"]  { border-color: var(--c-doors-bg); }
+    .interest-tile[data-interest="calls"]  { border-color: var(--c-calls-bg); }
+    .interest-tile[data-interest="sign"]   { border-color: var(--c-sign-bg); }
+    .interest-tile[data-interest="events"] { border-color: var(--c-events-bg); }
+    .interest-tile[data-interest="social"] { border-color: var(--c-social-bg); }
+    .interest-tile[data-interest="host"]   { border-color: var(--c-host-bg); }
+    .interest-tile[data-interest="doors"].selected  { border-color: var(--c-doors);  background: var(--c-doors-bg); }
+    .interest-tile[data-interest="calls"].selected  { border-color: var(--c-calls);  background: var(--c-calls-bg); }
+    .interest-tile[data-interest="sign"].selected   { border-color: var(--c-sign);   background: var(--c-sign-bg);  }
+    .interest-tile[data-interest="events"].selected { border-color: var(--c-events); background: var(--c-events-bg);}
+    .interest-tile[data-interest="social"].selected { border-color: var(--c-social); background: var(--c-social-bg);}
+    .interest-tile[data-interest="host"].selected   { border-color: var(--c-host);   background: var(--c-host-bg);  }
+
+    .tile-icon  { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+    .tile-count { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; display: block; line-height: 1; }
+    .tile-label { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); margin-top: 3px; display: block; text-transform: uppercase; }
+
+    /* ─── TABLE WRAP ─── */
+    .table-wrap { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+    .table-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); gap: 12px; flex-wrap: wrap; }
+    .table-header h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--maroon-deep); }
+    .table-header-right { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .filter-select {
-      padding: 6px 12px;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      color: var(--charcoal);
-      background: var(--panel-bg);
-      outline: none;
-      cursor: pointer;
+      padding: 6px 12px; border: 1px solid var(--border); border-radius: 50px;
+      font-family: 'Inter', sans-serif; font-size: 0.8rem; color: var(--charcoal);
+      background: var(--panel-bg); outline: none; cursor: pointer;
     }
 
     table { width: 100%; border-collapse: collapse; }
     thead th {
-      text-align: left;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 12px 16px;
-      background: var(--panel-bg);
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
+      text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding: 10px 14px; background: var(--panel-bg); border-bottom: 1px solid var(--border); white-space: nowrap;
     }
-    tbody tr {
-      border-bottom: 1px solid rgba(107,16,32,0.07);
-      transition: background var(--tr);
-    }
+    tbody tr { border-bottom: 1px solid rgba(107,16,32,0.06); transition: background var(--tr); }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: #fdf8f4; }
-    tbody tr.is-contacted { opacity: 0.6; }
-    td {
-      padding: 13px 16px;
-      font-size: 0.88rem;
-      color: var(--charcoal);
-      vertical-align: middle;
-    }
+    tbody tr.is-contacted { opacity: 0.55; }
+    td { padding: 11px 14px; font-size: 0.86rem; color: var(--charcoal); vertical-align: middle; }
     td.td-name { font-weight: 600; color: var(--maroon-deep); }
-    td.td-muted { color: var(--muted); font-size: 0.82rem; }
+    td.td-muted { color: var(--muted); font-size: 0.8rem; }
 
-    /* ── STATUS BADGES ── */
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
+    /* ─── INTEREST PILLS (in table) ─── */
+    .interests-cell { display: flex; flex-wrap: wrap; gap: 4px; max-width: 280px; }
+    .ipill {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 9px; border-radius: 50px; font-size: 0.7rem; font-weight: 700;
+      white-space: nowrap; border: 1px solid transparent;
     }
-    .badge-new { background: var(--blue-bg); color: var(--blue); }
-    .badge-contacted { background: var(--green-bg); color: var(--green); }
-    .badge-interest {
-      background: var(--panel-bg);
-      color: var(--maroon);
-      border: 1px solid var(--border);
-      margin: 2px;
-      font-size: 0.68rem;
-      padding: 2px 8px;
-    }
+    .ipill-icon { font-size: 0.78rem; }
+    .ipill.doors  { background: var(--c-doors-bg);  color: var(--c-doors);  border-color: rgba(124,58,237,0.2);  }
+    .ipill.calls  { background: var(--c-calls-bg);  color: var(--c-calls);  border-color: rgba(3,105,161,0.2);   }
+    .ipill.sign   { background: var(--c-sign-bg);   color: var(--c-sign);   border-color: rgba(180,83,9,0.2);    }
+    .ipill.events { background: var(--c-events-bg); color: var(--c-events); border-color: rgba(21,128,61,0.2);   }
+    .ipill.social { background: var(--c-social-bg); color: var(--c-social); border-color: rgba(190,24,93,0.2);   }
+    .ipill.host   { background: var(--c-host-bg);   color: var(--c-host);   border-color: rgba(154,52,18,0.2);   }
 
-    /* ── ACTIONS ── */
-    .action-btn {
-      padding: 5px 12px;
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--tr);
-      border: 1px solid;
-      margin-right: 4px;
+    /* ─── NEXT ACTION CHIP ─── */
+    .next-action {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 700;
+      background: rgba(107,16,32,0.06); color: var(--maroon); border: 1px solid rgba(107,16,32,0.12);
       white-space: nowrap;
     }
-    .action-btn--contact { border-color: var(--green); color: var(--green); background: none; }
+
+    /* ─── STATUS BADGES ─── */
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; }
+    .badge-new       { background: var(--blue-bg); color: var(--blue); }
+    .badge-contacted { background: var(--green-bg); color: var(--green); }
+
+    /* ─── ACTION BUTTONS ─── */
+    .action-btn {
+      padding: 4px 11px; border-radius: 50px; font-family: 'Inter', sans-serif;
+      font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: var(--tr);
+      border: 1px solid; margin-right: 3px; white-space: nowrap; margin-bottom: 3px;
+    }
+    .action-btn--contact   { border-color: var(--green); color: var(--green); background: none; }
     .action-btn--contact:hover { background: var(--green-bg); }
     .action-btn--uncontact { border-color: var(--muted); color: var(--muted); background: none; }
     .action-btn--uncontact:hover { background: var(--panel-bg); }
-    .action-btn--note { border-color: var(--amber); color: var(--amber); background: none; }
+    .action-btn--note   { border-color: var(--amber); color: var(--amber); background: none; }
     .action-btn--note:hover { background: #fff8ed; }
     .action-btn--delete { border-color: var(--red); color: var(--red); background: none; }
     .action-btn--delete:hover { background: var(--red-bg); }
 
-    /* ── NOTE CELL ── */
+    /* ─── NOTE DISPLAY ─── */
     .note-text {
-      font-size: 0.78rem;
-      color: var(--muted);
-      font-style: italic;
-      max-width: 200px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 0.75rem; color: var(--muted); font-style: italic;
+      max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 56px 24px;
-      color: var(--muted);
-    }
-    .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
-    .empty-state p { font-size: 0.9rem; }
+    /* ─── EMPTY STATE ─── */
+    .empty-state { text-align: center; padding: 48px 24px; color: var(--muted); }
+    .empty-state .ei { font-size: 2.2rem; margin-bottom: 10px; }
+    .empty-state p { font-size: 0.88rem; }
 
-    /* ── NOTE MODAL ── */
+    /* ─── NOTE MODAL ─── */
     #note-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(30,10,16,0.6);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(4px);
+      display: none; position: fixed; inset: 0;
+      background: rgba(30,10,16,0.65); z-index: 9999;
+      align-items: center; justify-content: center; backdrop-filter: blur(4px);
     }
     #note-modal.open { display: flex; }
-    .modal-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 36px;
-      width: 100%;
-      max-width: 440px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
-    }
-    .modal-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: var(--maroon-deep);
-      margin-bottom: 6px;
-    }
-    .modal-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 18px; }
+    .modal-card { background: var(--white); border-radius: 16px; padding: 32px; width: 100%; max-width: 420px; box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
+    .modal-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--maroon-deep); margin-bottom: 4px; }
+    .modal-card .modal-who { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
     .modal-card textarea {
-      width: 100%;
-      padding: 13px 16px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      color: var(--charcoal);
-      resize: vertical;
-      min-height: 100px;
-      outline: none;
-      transition: var(--tr);
+      width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--charcoal);
+      resize: vertical; min-height: 90px; outline: none; transition: var(--tr);
     }
     .modal-card textarea:focus { border-color: var(--maroon); }
-    .modal-actions { display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 14px; justify-content: flex-end; }
     .modal-cancel {
-      padding: 9px 22px;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      background: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.88rem;
-      color: var(--muted);
-      cursor: pointer;
-      transition: var(--tr);
+      padding: 8px 20px; border: 1px solid var(--border); border-radius: 50px;
+      background: none; font-family: 'Inter', sans-serif; font-size: 0.86rem;
+      color: var(--muted); cursor: pointer; transition: var(--tr);
     }
     .modal-cancel:hover { background: var(--panel-bg); }
     .modal-save {
-      padding: 9px 22px;
-      border: none;
-      border-radius: 50px;
-      background: var(--maroon);
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--tr);
+      padding: 8px 20px; border: none; border-radius: 50px; background: var(--maroon);
+      color: var(--white); font-family: 'Inter', sans-serif; font-size: 0.86rem;
+      font-weight: 700; cursor: pointer; transition: var(--tr);
     }
     .modal-save:hover { background: var(--maroon-light); }
 
-    /* ── TOAST ── */
+    /* ─── TOAST ─── */
     #toast {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      background: var(--charcoal);
-      color: var(--white);
-      padding: 12px 22px;
-      border-radius: 50px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.3s, transform 0.3s;
-      pointer-events: none;
-      z-index: 9999;
-      border-left: 4px solid var(--amber);
+      position: fixed; bottom: 24px; right: 24px; background: var(--charcoal); color: var(--white);
+      padding: 11px 20px; border-radius: 50px; font-size: 0.86rem; font-weight: 500;
+      opacity: 0; transform: translateY(12px); transition: opacity 0.28s, transform 0.28s;
+      pointer-events: none; z-index: 9999; border-left: 4px solid var(--amber);
     }
     #toast.show { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-<!-- ── LOGIN ── -->
+<!-- ─── LOGIN ─── -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-star">★</div>
     <h1>Campaign Admin</h1>
-    <p>Charlotte Wilson for Princeton ISD School Board</p>
-    <input type="password" id="pw-input" placeholder="Enter password" autocomplete="current-password" />
+    <p>Charlotte Wilson · Princeton ISD School Board</p>
+    <input type="password" id="pw-input" placeholder="Password" autocomplete="current-password" />
     <button class="login-btn" id="login-btn">Sign In</button>
-    <div class="login-error" id="login-error">Incorrect password. Try again.</div>
+    <div class="login-error" id="login-error">Wrong password — try again.</div>
   </div>
 </div>
 
-<!-- ── APP SHELL ── -->
+<!-- ─── APP ─── -->
 <div id="app" style="display:none; flex-direction:row; height:100vh;">
 
-  <!-- SIDEBAR -->
   <aside id="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-star">★</div>
       <div class="sidebar-name">Charlotte Wilson</div>
-      <div class="sidebar-sub">Campaign Admin · Princeton ISD</div>
+      <div class="sidebar-sub">Princeton ISD Campaign Admin</div>
     </div>
     <nav class="sidebar-nav">
-      <div class="sidebar-section-label">Overview</div>
-      <div class="nav-item active" data-panel="dashboard" id="nav-dashboard">
+      <div class="sidebar-label">Overview</div>
+      <div class="nav-item active" data-panel="dashboard">
         <span class="nav-icon">📊</span> Dashboard
       </div>
-      <div class="sidebar-section-label">Inquiries</div>
-      <div class="nav-item" data-panel="alerts" id="nav-alerts">
-        <span class="nav-icon">🗳️</span> Election Alerts
-        <span class="nav-badge new" id="badge-alerts">0</span>
-      </div>
-      <div class="nav-item" data-panel="volunteers" id="nav-volunteers">
+      <div class="sidebar-label">Signups</div>
+      <div class="nav-item" data-panel="volunteers">
         <span class="nav-icon">🙋</span> Volunteers
-        <span class="nav-badge new" id="badge-volunteers">0</span>
+        <span class="nav-badge new" id="badge-vols">0</span>
+      </div>
+      <div class="nav-item" data-panel="alerts">
+        <span class="nav-icon">🗳️</span> Alert Signups
+        <span class="nav-badge new" id="badge-alerts">0</span>
       </div>
     </nav>
     <div class="sidebar-footer">
@@ -528,12 +345,11 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div id="main">
     <div id="topbar">
       <div class="topbar-title" id="topbar-title">Dashboard</div>
-      <div class="topbar-actions">
-        <input type="text" class="topbar-search" id="search-input" placeholder="Search by name, email, zip…" />
+      <div class="topbar-right">
+        <input type="text" class="topbar-search" id="search-input" placeholder="Search name, email, zip…" />
         <button class="export-btn" id="export-btn">⬇ Export CSV</button>
       </div>
     </div>
@@ -550,80 +366,112 @@
           </div>
           <div class="stat-card stat-card--amber">
             <div class="stat-card__label">Volunteers</div>
-            <div class="stat-card__value" id="stat-volunteers">0</div>
+            <div class="stat-card__value" id="stat-vols">0</div>
             <div class="stat-card__sub">Ready to help</div>
           </div>
           <div class="stat-card">
-            <div class="stat-card__label">Election Alerts</div>
+            <div class="stat-card__label">Alert Signups</div>
             <div class="stat-card__value" id="stat-alerts">0</div>
-            <div class="stat-card__sub">Notification signups</div>
+            <div class="stat-card__sub">Election notifications</div>
           </div>
           <div class="stat-card stat-card--green">
             <div class="stat-card__label">Contacted</div>
             <div class="stat-card__value" id="stat-contacted">0</div>
-            <div class="stat-card__sub">Follow-up complete</div>
+            <div class="stat-card__sub">Follow-up done</div>
           </div>
         </div>
-
-        <!-- Recent activity -->
         <div class="table-wrap">
           <div class="table-header">
             <h3>Recent Signups</h3>
-            <div class="table-header-right">
-              <span style="font-size:0.78rem;color:var(--muted);">All forms combined, newest first</span>
-            </div>
+            <span style="font-size:0.75rem;color:var(--muted)">All forms · newest first</span>
           </div>
-          <div id="dashboard-table-body"></div>
-        </div>
-      </div>
-
-      <!-- ELECTION ALERTS -->
-      <div class="panel" id="panel-alerts">
-        <div class="table-wrap">
-          <div class="table-header">
-            <h3>🗳️ Election Alert Signups</h3>
-            <div class="table-header-right">
-              <select class="filter-select" id="alerts-filter">
-                <option value="all">All</option>
-                <option value="new">New Only</option>
-                <option value="contacted">Contacted</option>
-              </select>
-            </div>
-          </div>
-          <div id="alerts-table-body"></div>
+          <div id="dash-body"></div>
         </div>
       </div>
 
       <!-- VOLUNTEERS -->
       <div class="panel" id="panel-volunteers">
+
+        <!-- Interest summary tiles -->
+        <div class="interest-bar" id="interest-bar">
+          <div class="interest-tile all-tile selected" data-interest="all">
+            <span class="tile-icon">👥</span>
+            <span class="tile-count" id="tile-all">0</span>
+            <span class="tile-label">All</span>
+          </div>
+          <div class="interest-tile" data-interest="doors">
+            <span class="tile-icon">🚪</span>
+            <span class="tile-count" id="tile-doors">0</span>
+            <span class="tile-label">Knock Doors</span>
+          </div>
+          <div class="interest-tile" data-interest="calls">
+            <span class="tile-icon">📞</span>
+            <span class="tile-count" id="tile-calls">0</span>
+            <span class="tile-label">Phone Bank</span>
+          </div>
+          <div class="interest-tile" data-interest="sign">
+            <span class="tile-icon">🪧</span>
+            <span class="tile-count" id="tile-sign">0</span>
+            <span class="tile-label">Yard Sign</span>
+          </div>
+          <div class="interest-tile" data-interest="events">
+            <span class="tile-icon">🎪</span>
+            <span class="tile-count" id="tile-events">0</span>
+            <span class="tile-label">Events</span>
+          </div>
+          <div class="interest-tile" data-interest="social">
+            <span class="tile-icon">📱</span>
+            <span class="tile-count" id="tile-social">0</span>
+            <span class="tile-label">Social Media</span>
+          </div>
+          <!-- host tile below table header on wider screens, so skip here if crowded -->
+        </div>
+
         <div class="table-wrap">
           <div class="table-header">
-            <h3>🙋 Volunteer Signups</h3>
+            <h3 id="vol-table-title">🙋 All Volunteers</h3>
             <div class="table-header-right">
-              <select class="filter-select" id="volunteers-filter">
-                <option value="all">All</option>
+              <select class="filter-select" id="vol-status-filter">
+                <option value="all">All Statuses</option>
                 <option value="new">New Only</option>
                 <option value="contacted">Contacted</option>
               </select>
             </div>
           </div>
-          <div id="volunteers-table-body"></div>
+          <div id="vol-body"></div>
         </div>
       </div>
 
-    </div><!-- /content -->
-  </div><!-- /main -->
-</div><!-- /app -->
+      <!-- ALERT SIGNUPS -->
+      <div class="panel" id="panel-alerts">
+        <div class="table-wrap">
+          <div class="table-header">
+            <h3>🗳️ Election Alert Signups</h3>
+            <div class="table-header-right">
+              <select class="filter-select" id="alert-status-filter">
+                <option value="all">All Statuses</option>
+                <option value="new">New Only</option>
+                <option value="contacted">Contacted</option>
+              </select>
+            </div>
+          </div>
+          <div id="alert-body"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- NOTE MODAL -->
 <div id="note-modal">
   <div class="modal-card">
-    <h3>Add / Edit Note</h3>
-    <p id="modal-person-name">For: —</p>
-    <textarea id="note-textarea" placeholder="e.g. Called 7/5, she wants a yard sign on McKinney St…"></textarea>
+    <h3>Note</h3>
+    <div class="modal-who" id="modal-who">For: —</div>
+    <textarea id="note-ta" placeholder="e.g. Called 7/5, she's getting a yard sign on McKinney…"></textarea>
     <div class="modal-actions">
       <button class="modal-cancel" id="modal-cancel">Cancel</button>
-      <button class="modal-save" id="modal-save">Save Note</button>
+      <button class="modal-save" id="modal-save">Save</button>
     </div>
   </div>
 </div>
@@ -631,324 +479,371 @@
 <div id="toast"></div>
 
 <script>
-/* =========================================================
-   ADMIN — Charlotte Wilson Campaign
-   All data lives in localStorage (same origin as main site)
-   ========================================================= */
-
-const ADMIN_PW   = 'panther2026';
-const KEY_ALERTS = 'cw_alert_signups';
+/* ==========================================================
+   ADMIN — Charlotte Wilson for Princeton ISD
+   ========================================================== */
+const PW         = 'panther2026';
 const KEY_VOLS   = 'cw_volunteers';
-const KEY_META   = 'cw_admin_meta'; // contacted flags + notes
+const KEY_ALERTS = 'cw_alert_signups';
+const KEY_META   = 'cw_admin_meta';
 
-// ── SEED DEMO DATA if empty (remove after real signups exist) ──
-function seedDemoIfEmpty() {
-  const alerts = JSON.parse(localStorage.getItem(KEY_ALERTS) || '[]');
-  const vols   = JSON.parse(localStorage.getItem(KEY_VOLS)   || '[]');
-  if (alerts.length === 0 && vols.length === 0) {
-    const demo_alerts = [
-      { name:'Sarah Mitchell', email:'sarah.m@gmail.com', phone:'972-555-0101', zip:'75407', type:'election_alert', ts: new Date(Date.now()-86400000*2).toISOString() },
-      { name:'James Torres',   email:'jtorres@yahoo.com', phone:'',             zip:'75407', type:'election_alert', ts: new Date(Date.now()-86400000).toISOString() },
-      { name:'Kim Nguyen',     email:'knguyen@hotmail.com',phone:'972-555-0188', zip:'75442', type:'election_alert', ts: new Date().toISOString() },
-    ];
-    const demo_vols = [
-      { name:'Marcus Webb',    email:'mwebb@gmail.com',    phone:'972-555-0234', zip:'75407', interests:['doors','sign'], ts: new Date(Date.now()-86400000*3).toISOString() },
-      { name:'Priya Sharma',   email:'psharma@outlook.com',phone:'',             zip:'75407', interests:['calls','social'], ts: new Date(Date.now()-86400000).toISOString() },
-      { name:'David Castillo', email:'dcastillo@gmail.com',phone:'214-555-0167', zip:'75407', interests:['sign','events','host'], ts: new Date().toISOString() },
-    ];
-    localStorage.setItem(KEY_ALERTS, JSON.stringify(demo_alerts));
-    localStorage.setItem(KEY_VOLS,   JSON.stringify(demo_vols));
-  }
+const INTERESTS = {
+  doors:  { label: 'Knock Doors',  icon: '🚪', cls: 'doors'  },
+  calls:  { label: 'Phone Bank',   icon: '📞', cls: 'calls'  },
+  sign:   { label: 'Yard Sign',    icon: '🪧', cls: 'sign'   },
+  events: { label: 'Events',       icon: '🎪', cls: 'events' },
+  social: { label: 'Social Media', icon: '📱', cls: 'social' },
+  host:   { label: 'Host Meeting', icon: '🏠', cls: 'host'   },
+};
+
+// Next-action suggestion per interest
+const NEXT_ACTION = {
+  doors:  'Schedule canvassing',
+  calls:  'Add to call list',
+  sign:   'Arrange sign delivery',
+  events: 'Invite to next event',
+  social: 'Send share kit',
+  host:   'Plan house meeting',
+};
+
+/* ── seed demo data if empty ── */
+function seed() {
+  const v = ls(KEY_VOLS), a = ls(KEY_ALERTS);
+  if (v.length || a.length) return;
+  save(KEY_ALERTS, [
+    { name:'Sarah Mitchell', email:'sarah.m@gmail.com', phone:'972-555-0101', zip:'75407', type:'election_alert', ts: ago(2) },
+    { name:'James Torres',   email:'jtorres@yahoo.com', phone:'',             zip:'75407', type:'election_alert', ts: ago(1) },
+    { name:'Kim Nguyen',     email:'knguyen@hotmail.com',phone:'972-555-0188',zip:'75442', type:'election_alert', ts: now() },
+  ]);
+  save(KEY_VOLS, [
+    { name:'Marcus Webb',    email:'mwebb@gmail.com',    phone:'972-555-0234', zip:'75407', interests:['doors','sign'],          ts: ago(3) },
+    { name:'Priya Sharma',   email:'psharma@outlook.com',phone:'',             zip:'75407', interests:['calls','social'],        ts: ago(1) },
+    { name:'David Castillo', email:'dcastillo@gmail.com',phone:'214-555-0167', zip:'75407', interests:['sign','events','host'],  ts: ago(0.5) },
+    { name:'Lisa Park',      email:'lpark@icloud.com',   phone:'972-555-0319', zip:'75407', interests:['doors','calls','events'],ts: now() },
+  ]);
+}
+function ago(days) { return new Date(Date.now() - days*86400000).toISOString(); }
+function now()     { return new Date().toISOString(); }
+function ls(k)     { return JSON.parse(localStorage.getItem(k) || '[]'); }
+function save(k,v) { localStorage.setItem(k, JSON.stringify(v)); }
+function getVols()   { return ls(KEY_VOLS).slice().reverse(); }
+function getAlerts() { return ls(KEY_ALERTS).slice().reverse(); }
+
+/* ── meta ── */
+function meta()         { return JSON.parse(localStorage.getItem(KEY_META)||'{}'); }
+function saveMeta(m)    { localStorage.setItem(KEY_META,JSON.stringify(m)); }
+function rKey(r)        { return (r.email||r.name)+'_'+(r.type||'vol'); }
+function isContacted(r) { return !!meta()[rKey(r)]?.contacted; }
+function getNote(r)     { return meta()[rKey(r)]?.note||''; }
+function setContacted(r,v){ const m=meta(),k=rKey(r); m[k]=m[k]||{}; m[k].contacted=v; saveMeta(m); }
+function setNote(r,n)   { const m=meta(),k=rKey(r); m[k]=m[k]||{}; m[k].note=n; saveMeta(m); }
+
+/* ── date ── */
+function fmtDate(ts){ if(!ts)return'—'; return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+
+/* ── interests HTML ── */
+function pillsHTML(arr=[]){
+  return arr.map(i=>{
+    const d=INTERESTS[i];
+    return d?`<span class="ipill ${d.cls}"><span class="ipill-icon">${d.icon}</span>${d.label}</span>`:'';
+  }).join('');
 }
 
-// ── META (contacted, notes) ──
-function getMeta()         { return JSON.parse(localStorage.getItem(KEY_META) || '{}'); }
-function saveMeta(m)       { localStorage.setItem(KEY_META, JSON.stringify(m)); }
-function getRecordKey(r)   { return r.email + '_' + (r.type || 'vol'); }
-function isContacted(r)    { return !!getMeta()[getRecordKey(r)]?.contacted; }
-function getNote(r)        { return getMeta()[getRecordKey(r)]?.note || ''; }
-function setContacted(r,v) { const m=getMeta(); const k=getRecordKey(r); if(!m[k])m[k]={}; m[k].contacted=v; saveMeta(m); }
-function setNote(r,note)   { const m=getMeta(); const k=getRecordKey(r); if(!m[k])m[k]={}; m[k].note=note; saveMeta(m); }
-
-// ── DATA ──
-function getAlerts()    { return JSON.parse(localStorage.getItem(KEY_ALERTS) || '[]').reverse(); }
-function getVolunteers(){ return JSON.parse(localStorage.getItem(KEY_VOLS)   || '[]').reverse(); }
-
-// ── FORMAT ──
-function fmtDate(ts) {
-  if (!ts) return '—';
-  const d = new Date(ts);
-  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
-}
-function fmtInterests(arr=[]) {
-  const labels = { doors:'Knock Doors', calls:'Phone Banking', sign:'Yard Sign', events:'Events', social:'Social Media', host:'Host Meeting' };
-  return arr.map(i => `<span class="badge badge-interest">${labels[i]||i}</span>`).join('');
+/* ── next action for volunteer ── */
+function nextActionHTML(interests=[]){
+  if(!interests.length) return '<span class="note-text" style="opacity:0.4">None selected</span>';
+  // prioritise the "biggest ask" interest
+  const priority=['doors','calls','events','host','sign','social'];
+  const found=priority.find(p=>interests.includes(p))||interests[0];
+  return `<span class="next-action">▶ ${NEXT_ACTION[found]||'Follow up'}</span>`;
 }
 
-// ── LOGIN ──
+/* ── search ── */
+let activeInterest = 'all';
+function q(){ return document.getElementById('search-input').value.toLowerCase().trim(); }
+function matches(r){ const s=q(); if(!s)return true; return [r.name,r.email,r.phone,r.zip].some(v=>(v||'').toLowerCase().includes(s)); }
+
+/* ── LOGIN ── */
 document.getElementById('login-btn').addEventListener('click', tryLogin);
-document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
-
-function tryLogin() {
-  const pw = document.getElementById('pw-input').value;
-  if (pw === ADMIN_PW) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-    seedDemoIfEmpty();
-    refreshAll();
+document.getElementById('pw-input').addEventListener('keydown', e=>{ if(e.key==='Enter')tryLogin(); });
+function tryLogin(){
+  if(document.getElementById('pw-input').value===PW){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='flex';
+    seed(); refreshAll();
   } else {
-    document.getElementById('login-error').style.display = 'block';
-    document.getElementById('pw-input').value = '';
-    document.getElementById('pw-input').focus();
+    document.getElementById('login-error').style.display='block';
+    document.getElementById('pw-input').value='';
   }
 }
-
-document.getElementById('logout-btn').addEventListener('click', () => {
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('pw-input').value = '';
+document.getElementById('logout-btn').addEventListener('click',()=>{
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('pw-input').value='';
 });
 
-// ── NAV ──
-let currentPanel = 'dashboard';
-document.querySelectorAll('.nav-item').forEach(item => {
-  item.addEventListener('click', () => {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+/* ── NAV ── */
+let currentPanel='dashboard';
+document.querySelectorAll('.nav-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
     item.classList.add('active');
-    currentPanel = item.dataset.panel;
-    document.getElementById('panel-' + currentPanel).classList.add('active');
-    document.getElementById('topbar-title').textContent =
-      currentPanel === 'dashboard' ? 'Dashboard' :
-      currentPanel === 'alerts'    ? 'Election Alert Signups' :
-                                     'Volunteer Signups';
-    document.getElementById('search-input').value = '';
+    currentPanel=item.dataset.panel;
+    document.getElementById('panel-'+currentPanel).classList.add('active');
+    document.getElementById('topbar-title').textContent=
+      currentPanel==='dashboard'?'Dashboard':currentPanel==='volunteers'?'Volunteer Signups':'Election Alert Signups';
+    document.getElementById('search-input').value='';
     renderCurrent();
   });
 });
 
-// ── SEARCH ──
-document.getElementById('search-input').addEventListener('input', renderCurrent);
-document.getElementById('alerts-filter').addEventListener('change', () => renderTable('alerts'));
-document.getElementById('volunteers-filter').addEventListener('change', () => renderTable('volunteers'));
-
-function getSearch() { return document.getElementById('search-input').value.toLowerCase().trim(); }
-
-function matchesSearch(r) {
-  const q = getSearch();
-  if (!q) return true;
-  return [r.name, r.email, r.phone, r.zip].some(v => (v||'').toLowerCase().includes(q));
-}
-
-// ── EXPORT CSV ──
-document.getElementById('export-btn').addEventListener('click', () => {
-  if (currentPanel === 'alerts') exportCSV(getAlerts(), 'election_alerts');
-  else if (currentPanel === 'volunteers') exportCSV(getVolunteers(), 'volunteers');
-  else {
-    exportCSV([...getAlerts(), ...getVolunteers()], 'all_signups');
-  }
+/* ── INTEREST TILES ── */
+document.querySelectorAll('.interest-tile').forEach(tile=>{
+  tile.addEventListener('click',()=>{
+    document.querySelectorAll('.interest-tile').forEach(t=>t.classList.remove('selected'));
+    tile.classList.add('selected');
+    activeInterest=tile.dataset.interest;
+    const label=activeInterest==='all'?'All Volunteers':INTERESTS[activeInterest]?.label+' Volunteers';
+    document.getElementById('vol-table-title').textContent='🙋 '+label;
+    renderVols();
+  });
 });
 
-function exportCSV(records, filename) {
-  if (!records.length) { showToast('No records to export.'); return; }
-  const cols = ['Name','Email','Phone','ZIP','Type','Interests','Date','Contacted','Note'];
-  const rows = records.map(r => [
-    r.name||'', r.email||'', r.phone||'', r.zip||'',
-    r.type==='election_alert' ? 'Election Alert' : 'Volunteer',
+/* ── FILTERS ── */
+document.getElementById('vol-status-filter').addEventListener('change', renderVols);
+document.getElementById('alert-status-filter').addEventListener('change', renderAlerts);
+document.getElementById('search-input').addEventListener('input', renderCurrent);
+
+/* ── EXPORT ── */
+document.getElementById('export-btn').addEventListener('click',()=>{
+  if(currentPanel==='volunteers') exportCSV(getVols(),'volunteers');
+  else if(currentPanel==='alerts') exportCSV(getAlerts(),'alert_signups');
+  else exportCSV([...getVols(),...getAlerts()],'all_signups');
+});
+function exportCSV(records,filename){
+  if(!records.length){ toast('No records to export.'); return; }
+  const cols=['Name','Email','Phone','ZIP','Type','Interests','Date','Contacted','Note'];
+  const rows=records.map(r=>[
+    r.name||'',r.email||'',r.phone||'',r.zip||'',
+    r.type==='election_alert'?'Election Alert':'Volunteer',
     (r.interests||[]).join('; '),
     fmtDate(r.ts),
-    isContacted(r) ? 'Yes' : 'No',
+    isContacted(r)?'Yes':'No',
     getNote(r)
   ]);
-  const csv = [cols, ...rows].map(row => row.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob([csv], { type:'text/csv' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${filename}_${new Date().toISOString().slice(0,10)}.csv`;
+  const csv=[cols,...rows].map(row=>row.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download=`${filename}_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
-  showToast(`Exported ${records.length} records.`);
+  toast(`Exported ${records.length} records.`);
 }
 
-// ── RENDER ALL ──
-function refreshAll() {
-  updateBadges();
-  updateStats();
-  renderCurrent();
+/* ── REFRESH ALL ── */
+function refreshAll(){ updateBadges(); updateStats(); updateTiles(); renderCurrent(); }
+function renderCurrent(){
+  if(currentPanel==='dashboard') renderDash();
+  else if(currentPanel==='volunteers') renderVols();
+  else renderAlerts();
 }
 
-function renderCurrent() {
-  if (currentPanel === 'dashboard') renderDashboard();
-  else if (currentPanel === 'alerts') renderTable('alerts');
-  else renderTable('volunteers');
+/* ── BADGES ── */
+function updateBadges(){
+  const nv=getVols().filter(r=>!isContacted(r)).length;
+  const na=getAlerts().filter(r=>!isContacted(r)).length;
+  const bv=document.getElementById('badge-vols');
+  const ba=document.getElementById('badge-alerts');
+  bv.textContent=nv; bv.className='nav-badge'+(nv?' new':'');
+  ba.textContent=na; ba.className='nav-badge'+(na?' new':'');
 }
 
-// ── BADGES ──
-function updateBadges() {
-  const newAlerts = getAlerts().filter(r => !isContacted(r)).length;
-  const newVols   = getVolunteers().filter(r => !isContacted(r)).length;
-  document.getElementById('badge-alerts').textContent = newAlerts;
-  document.getElementById('badge-volunteers').textContent = newVols;
-  document.getElementById('badge-alerts').className    = 'nav-badge' + (newAlerts ? ' new' : '');
-  document.getElementById('badge-volunteers').className = 'nav-badge' + (newVols   ? ' new' : '');
+/* ── STATS ── */
+function updateStats(){
+  const vols=getVols(), alerts=getAlerts(), all=[...vols,...alerts];
+  document.getElementById('stat-total').textContent=all.length;
+  document.getElementById('stat-vols').textContent=vols.length;
+  document.getElementById('stat-alerts').textContent=alerts.length;
+  document.getElementById('stat-contacted').textContent=all.filter(isContacted).length;
 }
 
-// ── STATS ──
-function updateStats() {
-  const alerts = getAlerts();
-  const vols   = getVolunteers();
-  const all    = [...alerts, ...vols];
-  const contacted = all.filter(isContacted).length;
-  document.getElementById('stat-total').textContent     = all.length;
-  document.getElementById('stat-volunteers').textContent = vols.length;
-  document.getElementById('stat-alerts').textContent    = alerts.length;
-  document.getElementById('stat-contacted').textContent = contacted;
+/* ── INTEREST TILES ── */
+function updateTiles(){
+  const vols=getVols();
+  document.getElementById('tile-all').textContent=vols.length;
+  Object.keys(INTERESTS).forEach(k=>{
+    const el=document.getElementById('tile-'+k);
+    if(el) el.textContent=vols.filter(r=>(r.interests||[]).includes(k)).length;
+  });
 }
 
-// ── DASHBOARD TABLE ──
-function renderDashboard() {
-  const all = [...getAlerts().map(r=>({...r,_type:'alert'})), ...getVolunteers().map(r=>({...r,_type:'vol'}))]
-    .sort((a,b) => new Date(b.ts) - new Date(a.ts))
-    .filter(matchesSearch)
-    .slice(0, 20);
-
-  const el = document.getElementById('dashboard-table-body');
-  if (!all.length) { el.innerHTML = emptyState('No signups yet — share the site!'); return; }
-
-  el.innerHTML = `<table>
-    <thead><tr>
-      <th>Name</th><th>Email</th><th>Phone</th><th>ZIP</th><th>Type</th><th>Date</th><th>Status</th><th>Actions</th>
-    </tr></thead>
-    <tbody>${all.map(r => rowHTML(r, r._type==='alert' ? 'election_alert' : 'volunteer')).join('')}</tbody>
-  </table>`;
-  bindActions();
+/* ── DASHBOARD ── */
+function renderDash(){
+  const all=[...getVols().map(r=>({...r,_t:'vol'})),...getAlerts().map(r=>({...r,_t:'alert'}))]
+    .sort((a,b)=>new Date(b.ts)-new Date(a.ts)).filter(matches).slice(0,20);
+  const el=document.getElementById('dash-body');
+  if(!all.length){ el.innerHTML=empty('No signups yet.'); return; }
+  el.innerHTML=`<table>
+    <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>ZIP</th><th>Type</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>${all.map(r=>dashRow(r)).join('')}</tbody></table>`;
+  bind();
+}
+function dashRow(r){
+  const c=isContacted(r), k=encodeURIComponent(rKey(r));
+  const typeLabel=r._t==='vol'
+    ? `<span style="font-size:0.75rem;font-weight:600;color:var(--amber)">🙋 Volunteer</span>`
+    : `<span style="font-size:0.75rem;font-weight:600;color:var(--blue)">🗳️ Alert</span>`;
+  return `<tr class="${c?'is-contacted':''}" data-key="${k}">
+    <td class="td-name">${r.name||'—'}</td>
+    <td><a href="mailto:${r.email}" style="color:var(--maroon)">${r.email||'—'}</a></td>
+    <td class="td-muted">${r.phone||'—'}</td>
+    <td class="td-muted">${r.zip||'—'}</td>
+    <td>${typeLabel}</td>
+    <td class="td-muted">${fmtDate(r.ts)}</td>
+    <td><span class="badge ${c?'badge-contacted':'badge-new'}">${c?'Done':'New'}</span></td>
+    <td style="white-space:nowrap">
+      ${c?`<button class="action-btn action-btn--uncontact" data-key="${k}" data-action="uncontact" data-stype="${r.type||'volunteer'}">↩ Undo</button>`
+         :`<button class="action-btn action-btn--contact" data-key="${k}" data-action="contact" data-stype="${r.type||'volunteer'}">✓ Done</button>`}
+      <button class="action-btn action-btn--note" data-key="${k}" data-name="${r.name}" data-action="note">📝</button>
+    </td></tr>`;
 }
 
-// ── PANEL TABLES ──
-function renderTable(panel) {
-  const isAlert = panel === 'alerts';
-  const records = isAlert ? getAlerts() : getVolunteers();
-  const filter  = document.getElementById(panel + '-filter').value;
-  const filtered = records.filter(r => {
-    if (!matchesSearch(r)) return false;
-    if (filter === 'new') return !isContacted(r);
-    if (filter === 'contacted') return isContacted(r);
+/* ── VOLUNTEERS ── */
+function renderVols(){
+  const statusF=document.getElementById('vol-status-filter').value;
+  let records=getVols().filter(r=>{
+    if(!matches(r)) return false;
+    if(activeInterest!=='all' && !(r.interests||[]).includes(activeInterest)) return false;
+    if(statusF==='new') return !isContacted(r);
+    if(statusF==='contacted') return isContacted(r);
     return true;
   });
-  const el = document.getElementById(panel + '-table-body');
-  if (!filtered.length) { el.innerHTML = emptyState(filter==='all' ? 'No signups yet.' : `No ${filter} records.`); return; }
-
-  const extraCols = isAlert
-    ? '<th>Note</th><th>Actions</th>'
-    : '<th>Interests</th><th>Note</th><th>Actions</th>';
-
-  el.innerHTML = `<table>
+  const el=document.getElementById('vol-body');
+  if(!records.length){ el.innerHTML=empty('No volunteers match this filter.'); return; }
+  el.innerHTML=`<table>
     <thead><tr>
-      <th>Name</th><th>Email</th><th>Phone</th><th>ZIP</th><th>Date</th><th>Status</th>${extraCols}
+      <th>Name</th><th>Email</th><th>Phone</th><th>ZIP</th>
+      <th>What They'll Do</th><th>Next Action</th>
+      <th>Date</th><th>Status</th><th>Note</th><th>Actions</th>
     </tr></thead>
-    <tbody>${filtered.map(r => rowHTML(r, isAlert ? 'election_alert' : 'volunteer', !isAlert)).join('')}</tbody>
-  </table>`;
-  bindActions();
+    <tbody>${records.map(r=>volRow(r)).join('')}</tbody></table>`;
+  bind();
+}
+function volRow(r){
+  const c=isContacted(r), k=encodeURIComponent(rKey(r)), note=getNote(r);
+  return `<tr class="${c?'is-contacted':''}" data-key="${k}">
+    <td class="td-name">${r.name||'—'}</td>
+    <td><a href="mailto:${r.email}" style="color:var(--maroon)">${r.email||'—'}</a></td>
+    <td class="td-muted">${r.phone||'—'}</td>
+    <td class="td-muted">${r.zip||'—'}</td>
+    <td><div class="interests-cell">${pillsHTML(r.interests||[])}</div></td>
+    <td>${nextActionHTML(r.interests||[])}</td>
+    <td class="td-muted">${fmtDate(r.ts)}</td>
+    <td><span class="badge ${c?'badge-contacted':'badge-new'}">${c?'Done':'New'}</span></td>
+    <td class="note-text" title="${note}">${note||'<span style="opacity:0.3">—</span>'}</td>
+    <td style="white-space:nowrap;min-width:180px">
+      ${c?`<button class="action-btn action-btn--uncontact" data-key="${k}" data-action="uncontact" data-stype="volunteer">↩ Undo</button>`
+         :`<button class="action-btn action-btn--contact" data-key="${k}" data-action="contact" data-stype="volunteer">✓ Contacted</button>`}
+      <button class="action-btn action-btn--note" data-key="${k}" data-name="${r.name}" data-action="note">📝 Note</button>
+      <button class="action-btn action-btn--delete" data-key="${k}" data-action="delete" data-stype="volunteer">🗑</button>
+    </td></tr>`;
 }
 
-function rowHTML(r, typeLabel, showInterests=false) {
-  const contacted = isContacted(r);
-  const note      = getNote(r);
-  const key       = encodeURIComponent(getRecordKey(r));
-  const contactBtn = contacted
-    ? `<button class="action-btn action-btn--uncontact" data-key="${key}" data-action="uncontact">↩ Undo</button>`
-    : `<button class="action-btn action-btn--contact"   data-key="${key}" data-action="contact">✓ Contacted</button>`;
-
-  const interestCol = showInterests ? `<td>${fmtInterests(r.interests||[])}</td>` : '';
-
-  return `<tr class="${contacted ? 'is-contacted' : ''}" data-key="${key}">
+/* ── ALERTS ── */
+function renderAlerts(){
+  const statusF=document.getElementById('alert-status-filter').value;
+  let records=getAlerts().filter(r=>{
+    if(!matches(r)) return false;
+    if(statusF==='new') return !isContacted(r);
+    if(statusF==='contacted') return isContacted(r);
+    return true;
+  });
+  const el=document.getElementById('alert-body');
+  if(!records.length){ el.innerHTML=empty('No alert signups match this filter.'); return; }
+  el.innerHTML=`<table>
+    <thead><tr>
+      <th>Name</th><th>Email</th><th>Phone</th><th>ZIP</th>
+      <th>Date</th><th>Status</th><th>Note</th><th>Actions</th>
+    </tr></thead>
+    <tbody>${records.map(r=>alertRow(r)).join('')}</tbody></table>`;
+  bind();
+}
+function alertRow(r){
+  const c=isContacted(r), k=encodeURIComponent(rKey(r)), note=getNote(r);
+  return `<tr class="${c?'is-contacted':''}" data-key="${k}">
     <td class="td-name">${r.name||'—'}</td>
     <td><a href="mailto:${r.email}" style="color:var(--maroon)">${r.email||'—'}</a></td>
     <td class="td-muted">${r.phone||'—'}</td>
     <td class="td-muted">${r.zip||'—'}</td>
     <td class="td-muted">${fmtDate(r.ts)}</td>
-    <td><span class="badge ${contacted ? 'badge-contacted' : 'badge-new'}">${contacted ? 'Contacted' : 'New'}</span></td>
-    ${interestCol}
-    <td class="note-text" id="note-cell-${key}" title="${note}">${note||'<span style="opacity:0.35">No note</span>'}</td>
+    <td><span class="badge ${c?'badge-contacted':'badge-new'}">${c?'Done':'New'}</span></td>
+    <td class="note-text" title="${note}">${note||'<span style="opacity:0.3">—</span>'}</td>
     <td style="white-space:nowrap">
-      ${contactBtn}
-      <button class="action-btn action-btn--note"   data-key="${key}" data-name="${r.name}" data-action="note">📝 Note</button>
-      <button class="action-btn action-btn--delete" data-key="${key}" data-action="delete" data-type="${typeLabel}">🗑</button>
-    </td>
-  </tr>`;
+      ${c?`<button class="action-btn action-btn--uncontact" data-key="${k}" data-action="uncontact" data-stype="election_alert">↩ Undo</button>`
+         :`<button class="action-btn action-btn--contact" data-key="${k}" data-action="contact" data-stype="election_alert">✓ Reached</button>`}
+      <button class="action-btn action-btn--note" data-key="${k}" data-name="${r.name}" data-action="note">📝 Note</button>
+      <button class="action-btn action-btn--delete" data-key="${k}" data-action="delete" data-stype="election_alert">🗑</button>
+    </td></tr>`;
 }
 
-function emptyState(msg) {
-  return `<div class="empty-state"><div class="empty-icon">📋</div><p>${msg}</p></div>`;
-}
+/* ── EMPTY ── */
+function empty(msg){ return `<div class="empty-state"><div class="ei">📋</div><p>${msg}</p></div>`; }
 
-// ── ACTIONS ──
-function bindActions() {
-  document.querySelectorAll('[data-action]').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const action = btn.dataset.action;
-      const key    = decodeURIComponent(btn.dataset.key);
+/* ── BIND ACTIONS ── */
+function bind(){
+  document.querySelectorAll('[data-action]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const {action, key:eKey, name, stype} = btn.dataset;
+      const key=decodeURIComponent(eKey);
+      const all=[...getVols(),...getAlerts()];
+      const r=all.find(x=>rKey(x)===key);
 
-      if (action === 'contact' || action === 'uncontact') {
-        const all = [...getAlerts(), ...getVolunteers()];
-        const r   = all.find(x => getRecordKey(x) === key);
-        if (r) { setContacted(r, action === 'contact'); showToast(action==='contact' ? '✅ Marked as contacted' : '↩ Marked as new'); refreshAll(); }
+      if(action==='contact'||action==='uncontact'){
+        if(r){ setContacted(r, action==='contact'); toast(action==='contact'?'✅ Marked contacted':'↩ Reset to new'); refreshAll(); }
       }
-
-      if (action === 'note') {
-        openNoteModal(key, btn.dataset.name);
-      }
-
-      if (action === 'delete') {
-        if (!confirm(`Remove ${btn.closest('tr')?.querySelector('.td-name')?.textContent || 'this record'}? This can't be undone.`)) return;
-        const type = btn.dataset.type;
-        if (type === 'election_alert') {
-          const arr = getAlerts().filter(r => getRecordKey(r) !== key).reverse();
-          localStorage.setItem(KEY_ALERTS, JSON.stringify(arr));
+      if(action==='note') openNote(key,name);
+      if(action==='delete'){
+        const row=btn.closest('tr');
+        const label=row?.querySelector('.td-name')?.textContent||'this record';
+        if(!confirm(`Delete ${label}? Can't be undone.`)) return;
+        if(stype==='election_alert'){
+          save(KEY_ALERTS, getAlerts().filter(x=>rKey(x)!==key).reverse());
         } else {
-          const arr = getVolunteers().filter(r => getRecordKey(r) !== key).reverse();
-          localStorage.setItem(KEY_VOLS, JSON.stringify(arr));
+          save(KEY_VOLS, getVols().filter(x=>rKey(x)!==key).reverse());
         }
-        showToast('🗑 Record deleted');
-        refreshAll();
+        toast('🗑 Deleted'); refreshAll();
       }
     });
   });
 }
 
-// ── NOTE MODAL ──
-let currentNoteKey = null;
-function openNoteModal(key, name) {
-  currentNoteKey = key;
-  const all = [...getAlerts(), ...getVolunteers()];
-  const r   = all.find(x => getRecordKey(x) === key);
-  document.getElementById('modal-person-name').textContent = `For: ${name}`;
-  document.getElementById('note-textarea').value = r ? getNote(r) : '';
+/* ── NOTE MODAL ── */
+let noteKey=null;
+function openNote(key,name){
+  noteKey=key;
+  const all=[...getVols(),...getAlerts()];
+  const r=all.find(x=>rKey(x)===key);
+  document.getElementById('modal-who').textContent='For: '+(name||key);
+  document.getElementById('note-ta').value=r?getNote(r):'';
   document.getElementById('note-modal').classList.add('open');
-  document.getElementById('note-textarea').focus();
+  setTimeout(()=>document.getElementById('note-ta').focus(),60);
 }
-
-document.getElementById('modal-cancel').addEventListener('click', closeModal);
-document.getElementById('note-modal').addEventListener('click', e => { if(e.target===document.getElementById('note-modal')) closeModal(); });
-
-document.getElementById('modal-save').addEventListener('click', () => {
-  const note = document.getElementById('note-textarea').value.trim();
-  const all  = [...getAlerts(), ...getVolunteers()];
-  const r    = all.find(x => getRecordKey(x) === currentNoteKey);
-  if (r) { setNote(r, note); showToast('📝 Note saved'); refreshAll(); }
-  closeModal();
+document.getElementById('modal-cancel').addEventListener('click',closeNote);
+document.getElementById('note-modal').addEventListener('click',e=>{ if(e.target===document.getElementById('note-modal'))closeNote(); });
+document.getElementById('modal-save').addEventListener('click',()=>{
+  const note=document.getElementById('note-ta').value.trim();
+  const all=[...getVols(),...getAlerts()];
+  const r=all.find(x=>rKey(x)===noteKey);
+  if(r){ setNote(r,note); toast('📝 Note saved'); refreshAll(); }
+  closeNote();
 });
+function closeNote(){ document.getElementById('note-modal').classList.remove('open'); noteKey=null; }
 
-function closeModal() {
-  document.getElementById('note-modal').classList.remove('open');
-  currentNoteKey = null;
-}
-
-// ── TOAST ──
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+/* ── TOAST ── */
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2600);
 }
 </script>
 </body>
