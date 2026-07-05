@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campaign Admin — Charlotte Wilson for Princeton ISD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --maroon:       #6b1020;
+      --maroon-deep:  #4a0b16;
+      --maroon-light: #a52035;
+      --amber:        #c47c2a;
+      --amber-light:  #e09a48;
+      --cream:        #faf6f0;
+      --white:        #ffffff;
+      --charcoal:     #2b1c1c;
+      --muted:        #6b5050;
+      --sidebar-bg:   #1e0a10;
+      --panel-bg:     #f5f0eb;
+      --border:       rgba(107,16,32,0.15);
+      --green:        #16a34a;
+      --green-bg:     #dcfce7;
+      --red:          #dc2626;
+      --red-bg:       #fee2e2;
+      --blue:         #1d4ed8;
+      --blue-bg:      #dbeafe;
+      --radius:       10px;
+      --tr:           0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--panel-bg); color: var(--charcoal); }
+
+    /* ── LOGIN SCREEN ── */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(145deg, var(--maroon-deep), var(--maroon));
+    }
+    .login-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    }
+    .login-star { font-size: 2.4rem; color: var(--amber-light); margin-bottom: 8px; }
+    .login-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--maroon-deep);
+      margin-bottom: 4px;
+    }
+    .login-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 28px; }
+    .login-card input {
+      width: 100%;
+      padding: 13px 18px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      outline: none;
+      transition: var(--tr);
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+    .login-card input:focus { border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(107,16,32,0.1); }
+    .login-btn {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--tr);
+    }
+    .login-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .login-error {
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: var(--red);
+      display: none;
+    }
+
+    /* ── SHELL ── */
+    #app { display: none; height: 100vh; overflow: hidden; flex-direction: row; }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 0;
+      overflow-y: auto;
+    }
+    .sidebar-logo {
+      padding: 0 24px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .sidebar-star { color: var(--amber-light); font-size: 1.4rem; }
+    .sidebar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+    .sidebar-sub { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 2px; letter-spacing: 0.05em; }
+
+    .sidebar-nav { padding: 20px 0; flex: 1; }
+    .sidebar-section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding: 0 24px;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+    .sidebar-section-label:first-child { margin-top: 0; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 24px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--tr);
+      border-left: 3px solid transparent;
+      position: relative;
+    }
+    .nav-item:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav-item.active {
+      color: var(--white);
+      background: rgba(201,124,42,0.12);
+      border-left-color: var(--amber);
+    }
+    .nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .nav-badge {
+      margin-left: auto;
+      background: var(--maroon-light);
+      color: var(--white);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 50px;
+      min-width: 20px;
+      text-align: center;
+    }
+    .nav-badge.new { background: var(--amber); color: var(--charcoal); }
+
+    .sidebar-footer {
+      padding: 20px 24px 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: var(--tr);
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+    }
+    .logout-btn:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── MAIN AREA ── */
+    #main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    #topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .topbar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--maroon-deep);
+    }
+    .topbar-actions { display: flex; gap: 10px; align-items: center; }
+    .topbar-search {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: var(--tr);
+      width: 220px;
+      color: var(--charcoal);
+      background: var(--panel-bg);
+    }
+    .topbar-search:focus { border-color: var(--maroon); width: 280px; }
+    .export-btn {
+      padding: 8px 18px;
+      background: none;
+      border: 1px solid var(--maroon);
+      color: var(--maroon);
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--tr);
+    }
+    .export-btn:hover { background: var(--maroon); color: var(--white); }
+
+    /* ── CONTENT ── */
+    #content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+    }
+
+    /* ── PANEL ── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 900px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(107,16,32,0.05);
+    }
+    .stat-card__label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .stat-card__value { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--maroon-deep); line-height: 1; }
+    .stat-card__sub { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+    .stat-card--amber .stat-card__value { color: var(--amber); }
+    .stat-card--green .stat-card__value { color: var(--green); }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(107,16,32,0.05);
+    }
+    .table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .table-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--maroon-deep);
+    }
+    .table-header-right { display: flex; gap: 8px; align-items: center; }
+    .filter-select {
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: var(--charcoal);
+      background: var(--panel-bg);
+      outline: none;
+      cursor: pointer;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 16px;
+      background: var(--panel-bg);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(107,16,32,0.07);
+      transition: background var(--tr);
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fdf8f4; }
+    tbody tr.is-contacted { opacity: 0.6; }
+    td {
+      padding: 13px 16px;
+      font-size: 0.88rem;
+      color: var(--charcoal);
+      vertical-align: middle;
+    }
+    td.td-name { font-weight: 600; color: var(--maroon-deep); }
+    td.td-muted { color: var(--muted); font-size: 0.82rem; }
+
+    /* ── STATUS BADGES ── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .badge-new { background: var(--blue-bg); color: var(--blue); }
+    .badge-contacted { background: var(--green-bg); color: var(--green); }
+    .badge-interest {
+      background: var(--panel-bg);
+      color: var(--maroon);
+      border: 1px solid var(--border);
+      margin: 2px;
+      font-size: 0.68rem;
+      padding: 2px 8px;
+    }
+
+    /* ── ACTIONS ── */
+    .action-btn {
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--tr);
+      border: 1px solid;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+    .action-btn--contact { border-color: var(--green); color: var(--green); background: none; }
+    .action-btn--contact:hover { background: var(--green-bg); }
+    .action-btn--uncontact { border-color: var(--muted); color: var(--muted); background: none; }
+    .action-btn--uncontact:hover { background: var(--panel-bg); }
+    .action-btn--note { border-color: var(--amber); color: var(--amber); background: none; }
+    .action-btn--note:hover { background: #fff8ed; }
+    .action-btn--delete { border-color: var(--red); color: var(--red); background: none; }
+    .action-btn--delete:hover { background: var(--red-bg); }
+
+    /* ── NOTE CELL ── */
+    .note-text {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 56px 24px;
+      color: var(--muted);
+    }
+    .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .empty-state p { font-size: 0.9rem; }
+
+    /* ── NOTE MODAL ── */
+    #note-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30,10,16,0.6);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    #note-modal.open { display: flex; }
+    .modal-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+    }
+    .modal-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--maroon-deep);
+      margin-bottom: 6px;
+    }
+    .modal-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 18px; }
+    .modal-card textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      resize: vertical;
+      min-height: 100px;
+      outline: none;
+      transition: var(--tr);
+    }
+    .modal-card textarea:focus { border-color: var(--maroon); }
+    .modal-actions { display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end; }
+    .modal-cancel {
+      padding: 9px 22px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      background: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: var(--tr);
+    }
+    .modal-cancel:hover { background: var(--panel-bg); }
+    .modal-save {
+      padding: 9px 22px;
+      border: none;
+      border-radius: 50px;
+      background: var(--maroon);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--tr);
+    }
+    .modal-save:hover { background: var(--maroon-light); }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 9999;
+      border-left: 4px solid var(--amber);
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-star">★</div>
+    <h1>Campaign Admin</h1>
+    <p>Charlotte Wilson for Princeton ISD School Board</p>
+    <input type="password" id="pw-input" placeholder="Enter password" autocomplete="current-password" />
+    <button class="login-btn" id="login-btn">Sign In</button>
+    <div class="login-error" id="login-error">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- ── APP SHELL ── -->
+<div id="app" style="display:none; flex-direction:row; height:100vh;">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-star">★</div>
+      <div class="sidebar-name">Charlotte Wilson</div>
+      <div class="sidebar-sub">Campaign Admin · Princeton ISD</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Overview</div>
+      <div class="nav-item active" data-panel="dashboard" id="nav-dashboard">
+        <span class="nav-icon">📊</span> Dashboard
+      </div>
+      <div class="sidebar-section-label">Inquiries</div>
+      <div class="nav-item" data-panel="alerts" id="nav-alerts">
+        <span class="nav-icon">🗳️</span> Election Alerts
+        <span class="nav-badge new" id="badge-alerts">0</span>
+      </div>
+      <div class="nav-item" data-panel="volunteers" id="nav-volunteers">
+        <span class="nav-icon">🙋</span> Volunteers
+        <span class="nav-badge new" id="badge-volunteers">0</span>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logout-btn">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div id="main">
+    <div id="topbar">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-actions">
+        <input type="text" class="topbar-search" id="search-input" placeholder="Search by name, email, zip…" />
+        <button class="export-btn" id="export-btn">⬇ Export CSV</button>
+      </div>
+    </div>
+
+    <div id="content">
+
+      <!-- DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="stats-row" id="stats-row">
+          <div class="stat-card">
+            <div class="stat-card__label">Total Signups</div>
+            <div class="stat-card__value" id="stat-total">0</div>
+            <div class="stat-card__sub">Across all forms</div>
+          </div>
+          <div class="stat-card stat-card--amber">
+            <div class="stat-card__label">Volunteers</div>
+            <div class="stat-card__value" id="stat-volunteers">0</div>
+            <div class="stat-card__sub">Ready to help</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Election Alerts</div>
+            <div class="stat-card__value" id="stat-alerts">0</div>
+            <div class="stat-card__sub">Notification signups</div>
+          </div>
+          <div class="stat-card stat-card--green">
+            <div class="stat-card__label">Contacted</div>
+            <div class="stat-card__value" id="stat-contacted">0</div>
+            <div class="stat-card__sub">Follow-up complete</div>
+          </div>
+        </div>
+
+        <!-- Recent activity -->
+        <div class="table-wrap">
+          <div class="table-header">
+            <h3>Recent Signups</h3>
+            <div class="table-header-right">
+              <span style="font-size:0.78rem;color:var(--muted);">All forms combined, newest first</span>
+            </div>
+          </div>
+          <div id="dashboard-table-body"></div>
+        </div>
+      </div>
+
+      <!-- ELECTION ALERTS -->
+      <div class="panel" id="panel-alerts">
+        <div class="table-wrap">
+          <div class="table-header">
+            <h3>🗳️ Election Alert Signups</h3>
+            <div class="table-header-right">
+              <select class="filter-select" id="alerts-filter">
+                <option value="all">All</option>
+                <option value="new">New Only</option>
+                <option value="contacted">Contacted</option>
+              </select>
+            </div>
+          </div>
+          <div id="alerts-table-body"></div>
+        </div>
+      </div>
+
+      <!-- VOLUNTEERS -->
+      <div class="panel" id="panel-volunteers">
+        <div class="table-wrap">
+          <div class="table-header">
+            <h3>🙋 Volunteer Signups</h3>
+            <div class="table-header-right">
+              <select class="filter-select" id="volunteers-filter">
+                <option value="all">All</option>
+                <option value="new">New Only</option>
+                <option value="contacted">Contacted</option>
+              </select>
+            </div>
+          </div>
+          <div id="volunteers-table-body"></div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- NOTE MODAL -->
+<div id="note-modal">
+  <div class="modal-card">
+    <h3>Add / Edit Note</h3>
+    <p id="modal-person-name">For: —</p>
+    <textarea id="note-textarea" placeholder="e.g. Called 7/5, she wants a yard sign on McKinney St…"></textarea>
+    <div class="modal-actions">
+      <button class="modal-cancel" id="modal-cancel">Cancel</button>
+      <button class="modal-save" id="modal-save">Save Note</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* =========================================================
+   ADMIN — Charlotte Wilson Campaign
+   All data lives in localStorage (same origin as main site)
+   ========================================================= */
+
+const ADMIN_PW   = 'panther2026';
+const KEY_ALERTS = 'cw_alert_signups';
+const KEY_VOLS   = 'cw_volunteers';
+const KEY_META   = 'cw_admin_meta'; // contacted flags + notes
+
+// ── SEED DEMO DATA if empty (remove after real signups exist) ──
+function seedDemoIfEmpty() {
+  const alerts = JSON.parse(localStorage.getItem(KEY_ALERTS) || '[]');
+  const vols   = JSON.parse(localStorage.getItem(KEY_VOLS)   || '[]');
+  if (alerts.length === 0 && vols.length === 0) {
+    const demo_alerts = [
+      { name:'Sarah Mitchell', email:'sarah.m@gmail.com', phone:'972-555-0101', zip:'75407', type:'election_alert', ts: new Date(Date.now()-86400000*2).toISOString() },
+      { name:'James Torres',   email:'jtorres@yahoo.com', phone:'',             zip:'75407', type:'election_alert', ts: new Date(Date.now()-86400000).toISOString() },
+      { name:'Kim Nguyen',     email:'knguyen@hotmail.com',phone:'972-555-0188', zip:'75442', type:'election_alert', ts: new Date().toISOString() },
+    ];
+    const demo_vols = [
+      { name:'Marcus Webb',    email:'mwebb@gmail.com',    phone:'972-555-0234', zip:'75407', interests:['doors','sign'], ts: new Date(Date.now()-86400000*3).toISOString() },
+      { name:'Priya Sharma',   email:'psharma@outlook.com',phone:'',             zip:'75407', interests:['calls','social'], ts: new Date(Date.now()-86400000).toISOString() },
+      { name:'David Castillo', email:'dcastillo@gmail.com',phone:'214-555-0167', zip:'75407', interests:['sign','events','host'], ts: new Date().toISOString() },
+    ];
+    localStorage.setItem(KEY_ALERTS, JSON.stringify(demo_alerts));
+    localStorage.setItem(KEY_VOLS,   JSON.stringify(demo_vols));
+  }
+}
+
+// ── META (contacted, notes) ──
+function getMeta()         { return JSON.parse(localStorage.getItem(KEY_META) || '{}'); }
+function saveMeta(m)       { localStorage.setItem(KEY_META, JSON.stringify(m)); }
+function getRecordKey(r)   { return r.email + '_' + (r.type || 'vol'); }
+function isContacted(r)    { return !!getMeta()[getRecordKey(r)]?.contacted; }
+function getNote(r)        { return getMeta()[getRecordKey(r)]?.note || ''; }
+function setContacted(r,v) { const m=getMeta(); const k=getRecordKey(r); if(!m[k])m[k]={}; m[k].contacted=v; saveMeta(m); }
+function setNote(r,note)   { const m=getMeta(); const k=getRecordKey(r); if(!m[k])m[k]={}; m[k].note=note; saveMeta(m); }
+
+// ── DATA ──
+function getAlerts()    { return JSON.parse(localStorage.getItem(KEY_ALERTS) || '[]').reverse(); }
+function getVolunteers(){ return JSON.parse(localStorage.getItem(KEY_VOLS)   || '[]').reverse(); }
+
+// ── FORMAT ──
+function fmtDate(ts) {
+  if (!ts) return '—';
+  const d = new Date(ts);
+  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+function fmtInterests(arr=[]) {
+  const labels = { doors:'Knock Doors', calls:'Phone Banking', sign:'Yard Sign', events:'Events', social:'Social Media', host:'Host Meeting' };
+  return arr.map(i => `<span class="badge badge-interest">${labels[i]||i}</span>`).join('');
+}
+
+// ── LOGIN ──
+document.getElementById('login-btn').addEventListener('click', tryLogin);
+document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
+
+function tryLogin() {
+  const pw = document.getElementById('pw-input').value;
+  if (pw === ADMIN_PW) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    seedDemoIfEmpty();
+    refreshAll();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pw-input').value = '';
+});
+
+// ── NAV ──
+let currentPanel = 'dashboard';
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    item.classList.add('active');
+    currentPanel = item.dataset.panel;
+    document.getElementById('panel-' + currentPanel).classList.add('active');
+    document.getElementById('topbar-title').textContent =
+      currentPanel === 'dashboard' ? 'Dashboard' :
+      currentPanel === 'alerts'    ? 'Election Alert Signups' :
+                                     'Volunteer Signups';
+    document.getElementById('search-input').value = '';
+    renderCurrent();
+  });
+});
+
+// ── SEARCH ──
+document.getElementById('search-input').addEventListener('input', renderCurrent);
+document.getElementById('alerts-filter').addEventListener('change', () => renderTable('alerts'));
+document.getElementById('volunteers-filter').addEventListener('change', () => renderTable('volunteers'));
+
+function getSearch() { return document.getElementById('search-input').value.toLowerCase().trim(); }
+
+function matchesSearch(r) {
+  const q = getSearch();
+  if (!q) return true;
+  return [r.name, r.email, r.phone, r.zip].some(v => (v||'').toLowerCase().includes(q));
+}
+
+// ── EXPORT CSV ──
+document.getElementById('export-btn').addEventListener('click', () => {
+  if (currentPanel === 'alerts') exportCSV(getAlerts(), 'election_alerts');
+  else if (currentPanel === 'volunteers') exportCSV(getVolunteers(), 'volunteers');
+  else {
+    exportCSV([...getAlerts(), ...getVolunteers()], 'all_signups');
+  }
+});
+
+function exportCSV(records, filename) {
+  if (!records.length) { showToast('No records to export.'); return; }
+  const cols = ['Name','Email','Phone','ZIP','Type','Interests','Date','Contacted','Note'];
+  const rows = records.map(r => [
+    r.name||'', r.email||'', r.phone||'', r.zip||'',
+    r.type==='election_alert' ? 'Election Alert' : 'Volunteer',
+    (r.interests||[]).join('; '),
+    fmtDate(r.ts),
+    isContacted(r) ? 'Yes' : 'No',
+    getNote(r)
+  ]);
+  const csv = [cols, ...rows].map(row => row.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type:'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${filename}_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  showToast(`Exported ${records.length} records.`);
+}
+
+// ── RENDER ALL ──
+function refreshAll() {
+  updateBadges();
+  updateStats();
+  renderCurrent();
+}
+
+function renderCurrent() {
+  if (currentPanel === 'dashboard') renderDashboard();
+  else if (currentPanel === 'alerts') renderTable('alerts');
+  else renderTable('volunteers');
+}
+
+// ── BADGES ──
+function updateBadges() {
+  const newAlerts = getAlerts().filter(r => !isContacted(r)).length;
+  const newVols   = getVolunteers().filter(r => !isContacted(r)).length;
+  document.getElementById('badge-alerts').textContent = newAlerts;
+  document.getElementById('badge-volunteers').textContent = newVols;
+  document.getElementById('badge-alerts').className    = 'nav-badge' + (newAlerts ? ' new' : '');
+  document.getElementById('badge-volunteers').className = 'nav-badge' + (newVols   ? ' new' : '');
+}
+
+// ── STATS ──
+function updateStats() {
+  const alerts = getAlerts();
+  const vols   = getVolunteers();
+  const all    = [...alerts, ...vols];
+  const contacted = all.filter(isContacted).length;
+  document.getElementById('stat-total').textContent     = all.length;
+  document.getElementById('stat-volunteers').textContent = vols.length;
+  document.getElementById('stat-alerts').textContent    = alerts.length;
+  document.getElementById('stat-contacted').textContent = contacted;
+}
+
+// ── DASHBOARD TABLE ──
+function renderDashboard() {
+  const all = [...getAlerts().map(r=>({...r,_type:'alert'})), ...getVolunteers().map(r=>({...r,_type:'vol'}))]
+    .sort((a,b) => new Date(b.ts) - new Date(a.ts))
+    .filter(matchesSearch)
+    .slice(0, 20);
+
+  const el = document.getElementById('dashboard-table-body');
+  if (!all.length) { el.innerHTML = emptyState('No signups yet — share the site!'); return; }
+
+  el.innerHTML = `<table>
+    <thead><tr>
+      <th>Name</th><th>Email</th><th>Phone</th><th>ZIP</th><th>Type</th><th>Date</th><th>Status</th><th>Actions</th>
+    </tr></thead>
+    <tbody>${all.map(r => rowHTML(r, r._type==='alert' ? 'election_alert' : 'volunteer')).join('')}</tbody>
+  </table>`;
+  bindActions();
+}
+
+// ── PANEL TABLES ──
+function renderTable(panel) {
+  const isAlert = panel === 'alerts';
+  const records = isAlert ? getAlerts() : getVolunteers();
+  const filter  = document.getElementById(panel + '-filter').value;
+  const filtered = records.filter(r => {
+    if (!matchesSearch(r)) return false;
+    if (filter === 'new') return !isContacted(r);
+    if (filter === 'contacted') return isContacted(r);
+    return true;
+  });
+  const el = document.getElementById(panel + '-table-body');
+  if (!filtered.length) { el.innerHTML = emptyState(filter==='all' ? 'No signups yet.' : `No ${filter} records.`); return; }
+
+  const extraCols = isAlert
+    ? '<th>Note</th><th>Actions</th>'
+    : '<th>Interests</th><th>Note</th><th>Actions</th>';
+
+  el.innerHTML = `<table>
+    <thead><tr>
+      <th>Name</th><th>Email</th><th>Phone</th><th>ZIP</th><th>Date</th><th>Status</th>${extraCols}
+    </tr></thead>
+    <tbody>${filtered.map(r => rowHTML(r, isAlert ? 'election_alert' : 'volunteer', !isAlert)).join('')}</tbody>
+  </table>`;
+  bindActions();
+}
+
+function rowHTML(r, typeLabel, showInterests=false) {
+  const contacted = isContacted(r);
+  const note      = getNote(r);
+  const key       = encodeURIComponent(getRecordKey(r));
+  const contactBtn = contacted
+    ? `<button class="action-btn action-btn--uncontact" data-key="${key}" data-action="uncontact">↩ Undo</button>`
+    : `<button class="action-btn action-btn--contact"   data-key="${key}" data-action="contact">✓ Contacted</button>`;
+
+  const interestCol = showInterests ? `<td>${fmtInterests(r.interests||[])}</td>` : '';
+
+  return `<tr class="${contacted ? 'is-contacted' : ''}" data-key="${key}">
+    <td class="td-name">${r.name||'—'}</td>
+    <td><a href="mailto:${r.email}" style="color:var(--maroon)">${r.email||'—'}</a></td>
+    <td class="td-muted">${r.phone||'—'}</td>
+    <td class="td-muted">${r.zip||'—'}</td>
+    <td class="td-muted">${fmtDate(r.ts)}</td>
+    <td><span class="badge ${contacted ? 'badge-contacted' : 'badge-new'}">${contacted ? 'Contacted' : 'New'}</span></td>
+    ${interestCol}
+    <td class="note-text" id="note-cell-${key}" title="${note}">${note||'<span style="opacity:0.35">No note</span>'}</td>
+    <td style="white-space:nowrap">
+      ${contactBtn}
+      <button class="action-btn action-btn--note"   data-key="${key}" data-name="${r.name}" data-action="note">📝 Note</button>
+      <button class="action-btn action-btn--delete" data-key="${key}" data-action="delete" data-type="${typeLabel}">🗑</button>
+    </td>
+  </tr>`;
+}
+
+function emptyState(msg) {
+  return `<div class="empty-state"><div class="empty-icon">📋</div><p>${msg}</p></div>`;
+}
+
+// ── ACTIONS ──
+function bindActions() {
+  document.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const action = btn.dataset.action;
+      const key    = decodeURIComponent(btn.dataset.key);
+
+      if (action === 'contact' || action === 'uncontact') {
+        const all = [...getAlerts(), ...getVolunteers()];
+        const r   = all.find(x => getRecordKey(x) === key);
+        if (r) { setContacted(r, action === 'contact'); showToast(action==='contact' ? '✅ Marked as contacted' : '↩ Marked as new'); refreshAll(); }
+      }
+
+      if (action === 'note') {
+        openNoteModal(key, btn.dataset.name);
+      }
+
+      if (action === 'delete') {
+        if (!confirm(`Remove ${btn.closest('tr')?.querySelector('.td-name')?.textContent || 'this record'}? This can't be undone.`)) return;
+        const type = btn.dataset.type;
+        if (type === 'election_alert') {
+          const arr = getAlerts().filter(r => getRecordKey(r) !== key).reverse();
+          localStorage.setItem(KEY_ALERTS, JSON.stringify(arr));
+        } else {
+          const arr = getVolunteers().filter(r => getRecordKey(r) !== key).reverse();
+          localStorage.setItem(KEY_VOLS, JSON.stringify(arr));
+        }
+        showToast('🗑 Record deleted');
+        refreshAll();
+      }
+    });
+  });
+}
+
+// ── NOTE MODAL ──
+let currentNoteKey = null;
+function openNoteModal(key, name) {
+  currentNoteKey = key;
+  const all = [...getAlerts(), ...getVolunteers()];
+  const r   = all.find(x => getRecordKey(x) === key);
+  document.getElementById('modal-person-name').textContent = `For: ${name}`;
+  document.getElementById('note-textarea').value = r ? getNote(r) : '';
+  document.getElementById('note-modal').classList.add('open');
+  document.getElementById('note-textarea').focus();
+}
+
+document.getElementById('modal-cancel').addEventListener('click', closeModal);
+document.getElementById('note-modal').addEventListener('click', e => { if(e.target===document.getElementById('note-modal')) closeModal(); });
+
+document.getElementById('modal-save').addEventListener('click', () => {
+  const note = document.getElementById('note-textarea').value.trim();
+  const all  = [...getAlerts(), ...getVolunteers()];
+  const r    = all.find(x => getRecordKey(x) === currentNoteKey);
+  if (r) { setNote(r, note); showToast('📝 Note saved'); refreshAll(); }
+  closeModal();
+});
+
+function closeModal() {
+  document.getElementById('note-modal').classList.remove('open');
+  currentNoteKey = null;
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
