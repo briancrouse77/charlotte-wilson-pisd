@@ -1086,3 +1086,444 @@ img { max-width: 100%; display: block; }
   .platform-card { padding: 28px 20px; }
   .involve-card  { padding: 24px 18px; }
 }
+
+/* ===========================
+   THEME TOGGLE BUTTON
+   =========================== */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.6);
+  transform: translateY(-1px);
+}
+.theme-toggle-icon { font-size: 1rem; }
+@media (max-width: 600px) { .theme-toggle-label { display: none; } }
+
+/* ===================================================
+   🍎 TEACHER THEME
+   [data-theme="teacher"] overrides
+   Classroom aesthetic: chalkboard, construction paper,
+   Fredoka One headings, Patrick Hand body, crayon CTAs
+   =================================================== */
+
+/* ── CSS variable overrides ── */
+[data-theme="teacher"] {
+  --t-chalk:        #f5f0e8;
+  --t-chalk-dim:    rgba(245,240,232,0.75);
+  --t-board:        #2d4a3e;
+  --t-board-dark:   #1a3027;
+  --t-board-light:  #3d6b5a;
+  --t-red:          #c0392b;
+  --t-red-light:    #e74c3c;
+  --t-yellow:       #f39c12;
+  --t-yellow-light: #f9ca24;
+  --t-blue:         #2980b9;
+  --t-blue-light:   #3498db;
+  --t-green:        #27ae60;
+  --t-purple:       #8e44ad;
+  --t-orange:       #e67e22;
+
+  /* paper section colors */
+  --t-paper-1:  #fffde7; /* yellow notepad */
+  --t-paper-2:  #e8f5e9; /* green construction */
+  --t-paper-3:  #e3f2fd; /* blue construction */
+  --t-paper-4:  #fce4ec; /* pink construction */
+  --t-paper-5:  #fff3e0; /* orange construction */
+  --t-lined:    repeating-linear-gradient(
+    transparent, transparent 27px,
+    rgba(100,149,237,0.15) 28px
+  );
+}
+
+/* ── Global body + fonts ── */
+[data-theme="teacher"] body {
+  background: var(--t-paper-1);
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.08rem;
+}
+
+[data-theme="teacher"] h1,
+[data-theme="teacher"] h2,
+[data-theme="teacher"] h3,
+[data-theme="teacher"] h4,
+[data-theme="teacher"] .section-title,
+[data-theme="teacher"] .hero-name,
+[data-theme="teacher"] .nav-name,
+[data-theme="teacher"] .footer-name {
+  font-family: 'Fredoka One', cursive !important;
+  letter-spacing: 0.01em;
+}
+
+[data-theme="teacher"] p,
+[data-theme="teacher"] li,
+[data-theme="teacher"] label,
+[data-theme="teacher"] input,
+[data-theme="teacher"] .section-sub,
+[data-theme="teacher"] .about-text p,
+[data-theme="teacher"] .platform-card p,
+[data-theme="teacher"] .acct-card p,
+[data-theme="teacher"] .involve-card p {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* ── Nav ── */
+[data-theme="teacher"] #main-nav {
+  background: rgba(26,48,39,0.0);
+}
+[data-theme="teacher"] #main-nav.scrolled {
+  background: rgba(26,48,39,0.97) !important;
+  border-bottom: 3px solid var(--t-yellow);
+}
+[data-theme="teacher"] .nav-star { color: var(--t-yellow-light); }
+[data-theme="teacher"] .nav-links a { font-family: 'Patrick Hand', cursive; font-size: 1rem; }
+[data-theme="teacher"] .nav-links a.nav-cta {
+  background: var(--t-yellow-light);
+  color: var(--t-board-dark);
+  font-family: 'Fredoka One', cursive;
+}
+[data-theme="teacher"] .nav-links a.nav-cta:hover {
+  background: var(--t-yellow);
+  color: var(--t-board-dark);
+}
+[data-theme="teacher"] .theme-toggle {
+  border-color: var(--t-yellow);
+  color: var(--t-yellow-light);
+}
+[data-theme="teacher"] #main-nav .nav-links {
+  background: var(--t-board-dark);
+  border-bottom: 3px solid var(--t-yellow);
+}
+
+/* ── Hero: chalkboard ── */
+[data-theme="teacher"] #hero {
+  background-color: var(--t-board) !important;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      rgba(245,240,232,0.04) 32px
+    ) !important;
+  background-blend-mode: overlay !important;
+}
+[data-theme="teacher"] .hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(26,48,39,0.82) 0%,
+    rgba(20,38,30,0.88) 55%,
+    rgba(15,28,22,0.96) 100%
+  ) !important;
+}
+[data-theme="teacher"] .hero-badge {
+  background: rgba(249,202,36,0.18);
+  border-color: rgba(249,202,36,0.6);
+  color: var(--t-yellow-light);
+  font-family: 'Patrick Hand', cursive;
+  letter-spacing: 0.1em;
+}
+[data-theme="teacher"] .hero-name {
+  color: var(--t-chalk) !important;
+  text-shadow:
+    2px 2px 0 rgba(0,0,0,0.35),
+    0 0 40px rgba(245,240,232,0.12) !important;
+  letter-spacing: 0.02em !important;
+}
+[data-theme="teacher"] .hero-slogan {
+  color: var(--t-yellow-light) !important;
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem) !important;
+}
+[data-theme="teacher"] .hero-sub {
+  color: var(--t-chalk-dim) !important;
+  font-family: 'Patrick Hand', cursive !important;
+}
+
+/* ── Sparkle: school colors in teacher mode ── */
+/* (sparkle still runs, just looks right on dark board) */
+
+/* ── Buttons ── */
+[data-theme="teacher"] .btn-primary {
+  background: linear-gradient(135deg, var(--t-red), var(--t-red-light)) !important;
+  box-shadow: 0 4px 0 #922b21, 0 6px 16px rgba(192,57,43,0.4) !important;
+  font-family: 'Fredoka One', cursive !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.04em !important;
+  border-radius: 8px !important;
+  transform: none !important;
+}
+[data-theme="teacher"] .btn-primary:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 0 #922b21, 0 10px 24px rgba(192,57,43,0.5) !important;
+}
+[data-theme="teacher"] .btn-ghost {
+  border-color: rgba(245,240,232,0.6) !important;
+  font-family: 'Fredoka One', cursive !important;
+  border-radius: 8px !important;
+}
+[data-theme="teacher"] .btn-outline {
+  color: var(--t-red) !important;
+  border-color: var(--t-red) !important;
+  font-family: 'Fredoka One', cursive !important;
+  border-radius: 8px !important;
+  border-width: 2.5px !important;
+}
+[data-theme="teacher"] .btn-outline:hover {
+  background: var(--t-red) !important;
+  color: white !important;
+}
+
+/* ── Why Now banner ── */
+[data-theme="teacher"] #why-now {
+  background: var(--t-board-dark) !important;
+  border-bottom: 4px dashed var(--t-yellow) !important;
+}
+[data-theme="teacher"] .stat-num { color: var(--t-yellow-light) !important; }
+[data-theme="teacher"] .stat-label { font-family: 'Patrick Hand', cursive !important; }
+[data-theme="teacher"] .why-message { font-family: 'Patrick Hand', cursive !important; }
+[data-theme="teacher"] .why-message strong { color: var(--t-yellow-light) !important; }
+
+/* ── Section eyebrow ── */
+[data-theme="teacher"] .section-eyebrow {
+  color: var(--t-red) !important;
+  font-family: 'Patrick Hand', cursive !important;
+  letter-spacing: 0.15em !important;
+}
+
+/* ── About section ── */
+[data-theme="teacher"] #about {
+  background: var(--t-paper-3) !important;
+  background-image: var(--t-lined) !important;
+}
+[data-theme="teacher"] .about-photo-placeholder {
+  background: linear-gradient(145deg, var(--t-board), var(--t-board-light)) !important;
+  border: 4px dashed rgba(249,202,36,0.6) !important;
+  border-radius: 12px !important;
+}
+[data-theme="teacher"] .photo-initials { color: var(--t-yellow-light) !important; }
+[data-theme="teacher"] .photo-label { color: rgba(245,240,232,0.5) !important; }
+[data-theme="teacher"] .chip {
+  background: var(--t-yellow-light) !important;
+  color: var(--t-board-dark) !important;
+  border: 2px solid var(--t-yellow) !important;
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 0.85rem !important;
+  border-radius: 6px !important;
+}
+[data-theme="teacher"] .about-text h2 { color: var(--t-board-dark) !important; }
+[data-theme="teacher"] .about-text p strong { color: var(--t-red) !important; }
+[data-theme="teacher"] .about-quote {
+  border-left: 4px solid var(--t-red) !important;
+}
+[data-theme="teacher"] .about-quote blockquote {
+  color: var(--t-board-dark) !important;
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1.1rem !important;
+}
+[data-theme="teacher"] .about-quote cite { color: var(--t-red) !important; }
+
+/* ── Platform ── */
+[data-theme="teacher"] #platform {
+  background: var(--t-paper-5) !important;
+}
+[data-theme="teacher"] #platform .section-title { color: var(--t-board-dark) !important; }
+[data-theme="teacher"] .platform-card {
+  border: 2.5px dashed rgba(0,0,0,0.2) !important;
+  border-radius: 6px !important;
+  background: #fff !important;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.12) !important;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+[data-theme="teacher"] .platform-card:hover {
+  transform: rotate(-0.8deg) translateY(-4px) !important;
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.18) !important;
+}
+/* Alternate card accents — like different color construction paper */
+[data-theme="teacher"] .platform-card:nth-child(1) { border-color: var(--t-red) !important; }
+[data-theme="teacher"] .platform-card:nth-child(2) { border-color: var(--t-blue) !important; }
+[data-theme="teacher"] .platform-card:nth-child(3) { border-color: var(--t-green) !important; }
+[data-theme="teacher"] .platform-card:nth-child(4) { border-color: var(--t-purple) !important; }
+[data-theme="teacher"] .platform-card:nth-child(5) { border-color: var(--t-orange) !important; }
+[data-theme="teacher"] .platform-card:nth-child(1) .platform-icon::after { content: ' ⭐'; }
+[data-theme="teacher"] .platform-card h3 { color: var(--t-board-dark) !important; }
+[data-theme="teacher"] .platform-card--slogan {
+  background: linear-gradient(145deg, var(--t-board), var(--t-board-light)) !important;
+  border: 3px solid var(--t-yellow) !important;
+  border-style: solid !important;
+}
+[data-theme="teacher"] .slogan-big {
+  font-family: 'Patrick Hand', cursive !important;
+  color: var(--t-chalk) !important;
+  font-size: 1.2rem !important;
+}
+[data-theme="teacher"] .slogan-star { color: var(--t-yellow-light) !important; }
+
+/* ── Accountability ── */
+[data-theme="teacher"] #accountability {
+  background: var(--t-board-dark) !important;
+}
+[data-theme="teacher"] #accountability::before {
+  background: repeating-linear-gradient(
+    90deg, var(--t-yellow), var(--t-yellow) 20px,
+    transparent 20px, transparent 30px
+  ) !important;
+  height: 6px !important;
+}
+[data-theme="teacher"] .acct-card {
+  background: rgba(245,240,232,0.07) !important;
+  border: 2px dashed rgba(249,202,36,0.4) !important;
+  border-radius: 8px !important;
+}
+[data-theme="teacher"] .acct-card h3 { color: var(--t-yellow-light) !important; font-family: 'Fredoka One', cursive !important; }
+[data-theme="teacher"] .acct-card p { color: rgba(245,240,232,0.82) !important; }
+[data-theme="teacher"] .acct-card strong { color: var(--t-chalk) !important; }
+[data-theme="teacher"] .acct-callout {
+  background: rgba(249,202,36,0.12) !important;
+  border-left: 4px solid var(--t-yellow) !important;
+  color: rgba(245,240,232,0.9) !important;
+}
+[data-theme="teacher"] .acct-callout strong { color: var(--t-yellow-light) !important; }
+[data-theme="teacher"] .acct-callout a { color: var(--t-yellow-light) !important; }
+[data-theme="teacher"] .acct-disclaimer {
+  background: rgba(245,240,232,0.05) !important;
+  border: 1px dashed rgba(245,240,232,0.2) !important;
+  color: rgba(245,240,232,0.4) !important;
+}
+
+/* ── Alert (Hall Pass) ── */
+[data-theme="teacher"] #alert { background: var(--t-paper-4) !important; }
+[data-theme="teacher"] .alert-box {
+  background: linear-gradient(145deg, var(--t-board-dark), var(--t-board)) !important;
+  border: 3px solid var(--t-yellow) !important;
+  border-radius: 12px !important;
+  position: relative;
+}
+[data-theme="teacher"] .alert-box::before {
+  content: '🏫 HALL PASS';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--t-yellow-light);
+  color: var(--t-board-dark);
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.82rem;
+  padding: 4px 18px;
+  border-radius: 50px;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+[data-theme="teacher"] .form-row input {
+  border-radius: 6px !important;
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1rem !important;
+}
+[data-theme="teacher"] .form-row input:focus {
+  border-color: var(--t-yellow) !important;
+  box-shadow: 0 0 0 3px rgba(249,202,36,0.2) !important;
+}
+
+/* ── Get Involved ── */
+[data-theme="teacher"] #involve { background: var(--t-paper-2) !important; }
+[data-theme="teacher"] #involve .section-title { color: var(--t-board-dark) !important; }
+[data-theme="teacher"] .involve-card {
+  background: #fff !important;
+  border: 2.5px dashed rgba(39,174,96,0.45) !important;
+  border-radius: 8px !important;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.1) !important;
+}
+[data-theme="teacher"] .involve-card:hover {
+  transform: translateY(-4px) rotate(-0.5deg) !important;
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.15) !important;
+}
+[data-theme="teacher"] .involve-card h3 { color: var(--t-board-dark) !important; font-family: 'Fredoka One', cursive !important; }
+[data-theme="teacher"] .share-text-box {
+  background: var(--t-paper-1) !important;
+  border: 1.5px dashed var(--t-yellow) !important;
+  border-radius: 6px !important;
+  font-family: 'Patrick Hand', cursive !important;
+}
+[data-theme="teacher"] .volunteer-form-wrap {
+  background: #fff !important;
+  border: 3px dashed rgba(0,0,0,0.18) !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.12) !important;
+}
+[data-theme="teacher"] .volunteer-form-wrap h3 { color: var(--t-board-dark) !important; }
+[data-theme="teacher"] .vform-grid input {
+  border-radius: 6px !important;
+  border: 2px solid rgba(0,0,0,0.2) !important;
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1rem !important;
+}
+[data-theme="teacher"] .vform-grid input:focus {
+  border-color: var(--t-red) !important;
+  box-shadow: 0 0 0 3px rgba(192,57,43,0.12) !important;
+}
+[data-theme="teacher"] .vform-checkboxes label {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1rem !important;
+  color: var(--t-board-dark) !important;
+}
+[data-theme="teacher"] .vform-checkboxes input[type="checkbox"] {
+  accent-color: var(--t-red) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* ── Footer ── */
+[data-theme="teacher"] #footer {
+  background: var(--t-board-dark) !important;
+  border-top: 4px dashed var(--t-yellow) !important;
+}
+[data-theme="teacher"] .footer-star { color: var(--t-yellow-light) !important; }
+[data-theme="teacher"] .footer-name { font-family: 'Fredoka One', cursive !important; color: var(--t-chalk) !important; }
+[data-theme="teacher"] .footer-office { color: rgba(245,240,232,0.45) !important; font-family: 'Patrick Hand', cursive !important; }
+[data-theme="teacher"] .footer-links a { font-family: 'Patrick Hand', cursive !important; }
+[data-theme="teacher"] .footer-links a:hover { color: var(--t-yellow-light) !important; }
+[data-theme="teacher"] .footer-bottom { font-family: 'Patrick Hand', cursive !important; }
+[data-theme="teacher"] .footer-bottom a:hover { color: var(--t-yellow-light) !important; }
+
+/* ── Decorative: ruler dividers ── */
+[data-theme="teacher"] #why-now,
+[data-theme="teacher"] #accountability {
+  position: relative;
+}
+
+/* ── Toggle button in teacher mode ── */
+[data-theme="teacher"] .theme-toggle {
+  background: rgba(249,202,36,0.18) !important;
+  border-color: var(--t-yellow) !important;
+  color: var(--t-yellow-light) !important;
+  font-family: 'Patrick Hand', cursive !important;
+}
+
+/* ── Transitions ── */
+body,
+#hero, #main-nav, #why-now, #about, #platform, #accountability, #alert, #involve, #footer,
+.platform-card, .involve-card, .acct-card, .alert-box, .volunteer-form-wrap,
+.btn-primary, .btn-ghost, .btn-outline, .chip, .nav-links a {
+  transition: background 0.4s ease, color 0.3s ease,
+              border-color 0.3s ease, box-shadow 0.3s ease,
+              font-family 0s !important;
+}

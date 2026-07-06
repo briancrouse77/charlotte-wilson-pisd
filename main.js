@@ -372,3 +372,50 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => el.classList.add('visible'), 200 + i * 150)
   );
 });
+
+// ───────────────────────────────────────────────────────
+// 🍎 THEME TOGGLE — Campaign ↔ Teacher
+// ───────────────────────────────────────────────────────
+(function () {
+  const STORAGE_KEY = 'cw_theme';
+  const html        = document.documentElement;
+  const btn         = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  const THEMES = {
+    default: {
+      attr:  null,
+      icon:  '🍎',
+      label: 'Teacher Mode',
+      title: 'Switch to Teacher Mode',
+    },
+    teacher: {
+      attr:  'teacher',
+      icon:  '⭐',
+      label: 'Campaign Mode',
+      title: 'Switch to Campaign Mode',
+    },
+  };
+
+  function applyTheme(name) {
+    const t = THEMES[name] || THEMES.default;
+    if (t.attr) {
+      html.setAttribute('data-theme', t.attr);
+    } else {
+      html.removeAttribute('data-theme');
+    }
+    btn.querySelector('.theme-toggle-icon').textContent  = t.icon;
+    btn.querySelector('.theme-toggle-label').textContent = t.label;
+    btn.title = t.title;
+    localStorage.setItem(STORAGE_KEY, name);
+  }
+
+  // Restore saved preference
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && THEMES[saved]) applyTheme(saved);
+
+  btn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme') === 'teacher' ? 'teacher' : 'default';
+    applyTheme(current === 'teacher' ? 'default' : 'teacher');
+  });
+})();
