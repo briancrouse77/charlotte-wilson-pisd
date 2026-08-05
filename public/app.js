@@ -91,16 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAddReminder) {
     btnAddReminder.addEventListener('click', () => {
       const method = voteMethod.value;
-      let eventTitle = "Vote for Charlotte Wilson (Princeton ISD)";
-      let dateString = "November 5, 2026";
-      let location = "Princeton High School Polling Site";
+      let eventTitle = "Vote for Charlotte Wilson (Princeton ISD School Board)";
+      let dateString = "Tuesday, November 3, 2026 (Election Day)";
+      let location = "Princeton High School (1000 E Princeton Dr) or any Collin County Vote Center";
       
       if (method === 'early') {
-        dateString = "October 26, 2026 (Early Voting)";
-        location = "Princeton City Hall";
+        dateString = "October 19 - October 30, 2026 (Early Voting)";
+        location = "Princeton City Hall (2000 E Princeton Dr) or any Collin County Early Vote Center";
       } else if (method === 'mail') {
-        dateString = "Mail-In Ballot deadline (October 25)";
-        location = "Princeton ISD Administration Office / Mail";
+        dateString = "Mail-In Application Deadline: Friday, October 23, 2026";
+        location = "Mail to: Collin County Elections Administrator (McKinney, TX)";
       }
 
       alert(`Calendar Event Created!\n\nEvent: ${eventTitle}\nDate: ${dateString}\nLocation: ${location}\n\nThank you for making a plan to support student success!`);
