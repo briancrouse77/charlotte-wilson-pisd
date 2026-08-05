@@ -87,28 +87,69 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Step 3: Add to calendar simulation
+  // Step 3: Add to calendar simulation (.ics file generation)
   if (btnAddReminder) {
     btnAddReminder.addEventListener('click', () => {
       const method = voteMethod.value;
       let eventTitle = "Vote for Charlotte Wilson (Princeton ISD School Board)";
-      let dateString = "Tuesday, November 3, 2026 (Election Day)";
+      let description = "Make your voice heard! Support student success, teacher retention, and special education by voting for Charlotte Wilson.";
+      let dateString = "Tuesday, November 3, 2026";
       let location = "Princeton High School (1000 E Princeton Dr) or any Collin County Vote Center";
       
+      // Default: Election Day Nov 3, 2026 (7am - 7pm)
+      let startDate = "20261103T070000";
+      let endDate = "20261103T190000";
+      
       if (method === 'early') {
-        dateString = "October 19 - October 30, 2026 (Early Voting)";
+        eventTitle = "Go Vote Early! Charlotte Wilson for School Board";
+        dateString = "October 19, 2026";
+        description = "Early voting is open! Go vote for Charlotte Wilson at Princeton City Hall or any Collin County Early Vote Center.";
         location = "Princeton City Hall (2000 E Princeton Dr) or any Collin County Early Vote Center";
+        startDate = "20261019T090000";
+        endDate = "20261019T170000";
       } else if (method === 'mail') {
-        dateString = "Mail-In Application Deadline: Friday, October 23, 2026";
+        eventTitle = "Deadline: Mail-In Ballot Application (Charlotte Wilson Campaign)";
+        dateString = "October 23, 2026";
+        description = "Last day for the Collin County Elections Office to receive your Mail-In Ballot application. Ensure your application is delivered by today!";
         location = "Mail to: Collin County Elections Administrator (McKinney, TX)";
+        startDate = "20261023T090000";
+        endDate = "20261023T170000";
       }
 
-      alert(`Calendar Event Created!\n\nEvent: ${eventTitle}\nDate: ${dateString}\nLocation: ${location}\n\nThank you for making a plan to support student success!`);
-      
-      btnAddReminder.innerText = 'Reminder Added ✓';
-      btnAddReminder.style.backgroundColor = '#4CAF50';
-      btnAddReminder.style.color = '#FFFFFF';
-      voteMethod.setAttribute('disabled', 'true');
+      // Generate and download .ics file
+      try {
+        const icsData = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//Charlotte Wilson Campaign//Voting Plan//EN',
+          'BEGIN:VEVENT',
+          `UID:${Date.now()}@charlotteforprinceton.com`,
+          `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
+          `DTSTART:${startDate}`,
+          `DTEND:${endDate}`,
+          `SUMMARY:${eventTitle}`,
+          `DESCRIPTION:${description}`,
+          `LOCATION:${location}`,
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\r\n');
+        
+        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'princeton-voting-plan.ics';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        btnAddReminder.innerText = 'Event Downloaded ✓';
+        btnAddReminder.style.backgroundColor = '#4CAF50';
+        btnAddReminder.style.color = '#FFFFFF';
+        voteMethod.setAttribute('disabled', 'true');
+      } catch (err) {
+        console.error('Failed to create calendar event:', err);
+        alert(`Your voting plan:\nEvent: ${eventTitle}\nDate: ${dateString}\nLocation: ${location}`);
+      }
     });
   }
 
