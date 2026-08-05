@@ -158,25 +158,31 @@ document.addEventListener('DOMContentLoaded', () => {
     sped: {
       checks: [true, true, true, true, true],
       decision: 'SUPPORT',
-      explanation: 'This proposal directly improves Special Education services, catches learning issues early in Pre-K, and supports classroom educators. Charlotte will 100% support early screening.',
+      explanation: 'Early identification is vital. Expanding early SPED and speech screenings in Pre-K directly supports teachers, catches learning gaps before they widen, and helps students learn. Charlotte will 100% vote YES.',
+      color: '#4CAF50'
+    },
+    retention: {
+      checks: [true, true, true, true, true],
+      decision: 'SUPPORT',
+      explanation: 'Princeton ISD must remain competitive. Increasing teacher stipends helps retain excellent classroom teachers who are currently leaving for McKinney or Allen ISDs, providing stability that directly improves student outcomes.',
+      color: '#4CAF50'
+    },
+    overcrowd: {
+      checks: [true, true, true, false, true],
+      decision: 'SUPPORT',
+      explanation: 'Princeton is growing rapidly. Constructing new campuses keeps class sizes small, ensures teachers are not overloaded, and strengthens community schools. Charlotte supports responsible growth management.',
       color: '#4CAF50'
     },
     admin: {
       checks: [false, false, false, false, false],
       decision: 'REJECT',
-      explanation: 'School board funds must go to classroom outcomes. Hiring more central administrative office layers does not improve student literacy, math, or direct teacher support. Charlotte rejects administration growth that bypasses schools.',
+      explanation: 'Taxpayer dollars belong in classrooms, not district administration offices. Adding more central office administrative layers at the Main Office does not support teachers or help students learn. Charlotte will vote NO.',
       color: '#F44336'
     },
-    tech: {
-      checks: [true, true, true, true, true],
-      decision: 'SUPPORT',
-      explanation: 'Preparing students for an AI-driven workforce and integrating modern technology directly into lessons helps them learn and gives teachers better tools. Charlotte supports this.',
-      color: '#4CAF50'
-    },
-    renovate: {
+    consultant: {
       checks: [false, false, false, false, false],
       decision: 'REJECT',
-      explanation: 'Charlotte believes school board expenditures belong in classrooms, not boardrooms. Spending taxpayer money on luxury boardroom renovations or furniture does not help students learn. Charlotte will vote NO.',
+      explanation: 'Charlotte believes in funding student instruction over public relations. Hiring an expensive external marketing firm to promote the district is an unnecessary use of taxpayer funds that does not benefit classrooms.',
       color: '#F44336'
     }
   };
