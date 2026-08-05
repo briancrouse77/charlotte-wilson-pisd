@@ -5,15 +5,15 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://charlotteforprinceton.com/about.html</loc>
+    <loc>https://charlotteforprinceton.com/about</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://charlotteforprinceton.com/priorities.html</loc>
+    <loc>https://charlotteforprinceton.com/priorities</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://charlotteforprinceton.com/volunteer.html</loc>
+    <loc>https://charlotteforprinceton.com/volunteer</loc>
     <priority>0.8</priority>
   </url>
 </urlset>
