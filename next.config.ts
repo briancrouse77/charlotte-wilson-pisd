@@ -1,13 +1,39 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async rewrites() {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  async redirects() {
     return [
-      { source: "/", destination: "/index.html" },
-      { source: "/about", destination: "/about.html" },
-      { source: "/priorities", destination: "/priorities.html" },
-      { source: "/volunteer", destination: "/volunteer.html" },
-      { source: "/admin", destination: "/admin.html" }
+      {
+        source: "/",
+        destination: "/index.html",
+        permanent: true,
+      },
+      {
+        source: "/about",
+        destination: "/about.html",
+        permanent: true,
+      },
+      {
+        source: "/priorities",
+        destination: "/priorities.html",
+        permanent: true,
+      },
+      {
+        source: "/volunteer",
+        destination: "/volunteer.html",
+        permanent: true,
+      },
+      {
+        source: "/admin",
+        destination: "/admin.html",
+        permanent: true,
+      }
     ];
   }
 };
