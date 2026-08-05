@@ -1,5 +1,153 @@
 document.addEventListener('DOMContentLoaded', () => {
   
+  const defaultSchoolImpact = {
+    "pre-k": {
+      "col1": {
+        "title": "Early Intervention Works",
+        "desc": "As a current Pre-K Team Lead, Charlotte understands that building a strong educational foundation begins early. Her platform prioritizes class resources and structured supports that set children up for success.",
+        "item1_title": "Early Literacy Programs",
+        "item1_desc": "Enriching classrooms with books and phonetic play guides to build initial reading skills.",
+        "item2_title": "Social & Cognitive Foundations",
+        "item2_desc": "Strengthening play-based structures that support emotional development and focus."
+      },
+      "col2": {
+        "title": "Special Education Integration",
+        "desc": "Charlotte’s unique dual experience as Pre-K Lead and Special Education Chair ensures that early detection and tailored classrooms are ready for every developmental need.",
+        "item1_title": "Developmental Screening",
+        "item1_desc": "Early identification of learning needs, so interventions can start when they are most effective.",
+        "item2_title": "Collaborative Classroom Support",
+        "item2_desc": "Providing Pre-K teachers with direct access to SPED specialists and training materials."
+      }
+    },
+    "elementary": {
+      "col1": {
+        "title": "Core Academic Foundations",
+        "desc": "Elementary grades are critical for basic reading and mathematics. Charlotte supports data-driven tutoring and reading initiatives that guarantee student outcomes.",
+        "item1_title": "Reading & Math Achievement",
+        "item1_desc": "Prioritizing intensive grade-level reading trackers and math labs that pinpoint weaknesses early.",
+        "item2_title": "Supported Educator Resources",
+        "item2_desc": "Providing teachers with training, assistants, and curriculum materials that reduce burnout."
+      },
+      "col2": {
+        "title": "Campus Transparency",
+        "desc": "Parents should know how their child's school is performing. Charlotte supports reporting metrics that go beyond district averages.",
+        "item1_title": "Campus-Specific Data",
+        "item1_desc": "Publishing local, campus-by-campus achievement metrics and reading levels transparently.",
+        "item2_title": "Family Literacy Toolkits",
+        "item2_desc": "Providing parent resource packets to continue student growth and reading exercises at home."
+      }
+    },
+    "middle": {
+      "col1": {
+        "title": "Guiding Transition & Logic",
+        "desc": "Middle school is a time of academic transition and personal growth. Charlotte advocates for critical thinking courses and positive attendance goals.",
+        "item1_title": "Foundational STEM Focus",
+        "item1_desc": "Strengthening mathematics and science options to prepare students for advanced secondary tracks.",
+        "item2_title": "Attendance Trackers",
+        "item2_desc": "Using supportive, positive intervention techniques to keep middle schoolers present in class."
+      },
+      "col2": {
+        "title": "Supported Counseling & SPED",
+        "desc": "Empowering counselors and special education staff to collaborate closely on academic transitions as children transition between campuses.",
+        "item1_title": "Transition IEP Plans",
+        "item1_desc": "Comprehensive transition meetings that align elementary SPED records with middle school goals.",
+        "item2_title": "Teacher-Led Advisory Councils",
+        "item2_desc": "Establishing regular feedback structures from campus educators directly to board policymakers."
+      }
+    },
+    "high": {
+      "col1": {
+        "title": "College, Career, and AI Readiness",
+        "desc": "Princeton graduates should step directly into opportunities. Charlotte advocates for technology integration and AI-workforce preparedness.",
+        "item1_title": "AI-Driven Workforce Training",
+        "item1_desc": "Integrating technical skills, data literacy, and AI fundamentals into high school coursework.",
+        "item2_title": "Vocational & Career Tracks",
+        "item2_desc": "Expanding direct certification programs (welding, medical assist, IT support) for graduates."
+      },
+      "col2": {
+        "title": "Fostering Leadership & Trust",
+        "desc": "Ensuring district resources are directed to classroom achievement, college preps, and graduation metrics, with full taxpayer accountability.",
+        "item1_title": "Goal Accountability",
+        "item1_desc": "Measuring district-wide goals against student college acceptance rates and employment results.",
+        "item2_title": "Fiscal Transparency",
+        "item2_desc": "Detailed breakdowns of high school budget expenditures, ensuring classroom funds reach classrooms."
+      }
+    }
+  };
+
+  // Dynamic School Impact Renderer
+  function initSchoolImpactDashboard() {
+    let data = localStorage.getItem('charlotte_campaign_school_impact');
+    if (!data) {
+      localStorage.setItem('charlotte_campaign_school_impact', JSON.stringify(defaultSchoolImpact));
+      data = JSON.stringify(defaultSchoolImpact);
+    }
+    const impactData = JSON.parse(data);
+    
+    // Map grade selectors
+    const panels = {
+      'pre-k': document.getElementById('panel-pre-k'),
+      'elementary': document.getElementById('panel-elementary'),
+      'middle': document.getElementById('panel-middle'),
+      'high': document.getElementById('panel-high')
+    };
+    
+    for (const [grade, panel] of Object.entries(panels)) {
+      if (!panel) continue;
+      const gradeData = impactData[grade];
+      if (!gradeData) continue;
+      
+      // Update col1
+      const col1 = panel.querySelector('[data-col="col1"]');
+      if (col1) {
+        const titleEl = col1.querySelector('h4');
+        if (titleEl) titleEl.textContent = gradeData.col1.title;
+        const descEl = col1.querySelector('.panel-description');
+        if (descEl) descEl.textContent = gradeData.col1.desc;
+        
+        const items = col1.querySelectorAll('.impact-item');
+        if (items[0]) {
+          const itemTitle = items[0].querySelector('h5');
+          if (itemTitle) itemTitle.textContent = gradeData.col1.item1_title;
+          const itemDesc = items[0].querySelector('p');
+          if (itemDesc) itemDesc.textContent = gradeData.col1.item1_desc;
+        }
+        if (items[1]) {
+          const itemTitle = items[1].querySelector('h5');
+          if (itemTitle) itemTitle.textContent = gradeData.col1.item2_title;
+          const itemDesc = items[1].querySelector('p');
+          if (itemDesc) itemDesc.textContent = gradeData.col1.item2_desc;
+        }
+      }
+      
+      // Update col2
+      const col2 = panel.querySelector('[data-col="col2"]');
+      if (col2) {
+        const titleEl = col2.querySelector('h4');
+        if (titleEl) titleEl.textContent = gradeData.col2.title;
+        const descEl = col2.querySelector('.panel-description');
+        if (descEl) descEl.textContent = gradeData.col2.desc;
+        
+        const items = col2.querySelectorAll('.impact-item');
+        if (items[0]) {
+          const itemTitle = items[0].querySelector('h5');
+          if (itemTitle) itemTitle.textContent = gradeData.col2.item1_title;
+          const itemDesc = items[0].querySelector('p');
+          if (itemDesc) itemDesc.textContent = gradeData.col2.item1_desc;
+        }
+        if (items[1]) {
+          const itemTitle = items[1].querySelector('h5');
+          if (itemTitle) itemTitle.textContent = gradeData.col2.item2_title;
+          const itemDesc = items[1].querySelector('p');
+          if (itemDesc) itemDesc.textContent = gradeData.col2.item2_desc;
+        }
+      }
+    }
+  }
+  
+  // Run on page load
+  initSchoolImpactDashboard();
+
   // ==========================================
   // Client-Side Traffic Tracker
   // ==========================================
@@ -831,6 +979,110 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       
       renderAnalytics();
+    }
+
+    // ==========================================
+    // School-Grade Impact Dashboard Editor (admin.html)
+    // ==========================================
+    const editorForm = document.getElementById('editor-form');
+    if (editorForm) {
+      const gradeSelect = document.getElementById('editor-grade-select');
+      
+      // Inputs
+      const col1Title = document.getElementById('editor-col1-title');
+      const col1Desc = document.getElementById('editor-col1-desc');
+      const col1I1Title = document.getElementById('editor-col1-i1-title');
+      const col1I1Desc = document.getElementById('editor-col1-i1-desc');
+      const col1I2Title = document.getElementById('editor-col1-i2-title');
+      const col1I2Desc = document.getElementById('editor-col1-i2-desc');
+      
+      const col2Title = document.getElementById('editor-col2-title');
+      const col2Desc = document.getElementById('editor-col2-desc');
+      const col2I1Title = document.getElementById('editor-col2-i1-title');
+      const col2I1Desc = document.getElementById('editor-col2-i1-desc');
+      const col2I2Title = document.getElementById('editor-col2-i2-title');
+      const col2I2Desc = document.getElementById('editor-col2-i2-desc');
+      
+      const btnReset = document.getElementById('btn-editor-reset');
+      
+      // Retrieve current data
+      const getEditorData = () => {
+        let data = localStorage.getItem('charlotte_campaign_school_impact');
+        if (!data) {
+          localStorage.setItem('charlotte_campaign_school_impact', JSON.stringify(defaultSchoolImpact));
+          return defaultSchoolImpact;
+        }
+        return JSON.parse(data);
+      };
+      
+      // Populate form fields based on selected grade
+      const populateFields = () => {
+        const selectedGrade = gradeSelect.value;
+        const data = getEditorData();
+        const gradeData = data[selectedGrade];
+        
+        if (gradeData) {
+          col1Title.value = gradeData.col1.title;
+          col1Desc.value = gradeData.col1.desc;
+          col1I1Title.value = gradeData.col1.item1_title;
+          col1I1Desc.value = gradeData.col1.item1_desc;
+          col1I2Title.value = gradeData.col1.item2_title;
+          col1I2Desc.value = gradeData.col1.item2_desc;
+          
+          col2Title.value = gradeData.col2.title;
+          col2Desc.value = gradeData.col2.desc;
+          col2I1Title.value = gradeData.col2.item1_title;
+          col2I1Desc.value = gradeData.col2.item1_desc;
+          col2I2Title.value = gradeData.col2.item2_title;
+          col2I2Desc.value = gradeData.col2.item2_desc;
+        }
+      };
+      
+      // Load initial selection
+      populateFields();
+      
+      // Handle grade change
+      gradeSelect.addEventListener('change', populateFields);
+      
+      // Handle form submit
+      editorForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const selectedGrade = gradeSelect.value;
+        const data = getEditorData();
+        
+        data[selectedGrade] = {
+          col1: {
+            title: col1Title.value.trim(),
+            desc: col1Desc.value.trim(),
+            item1_title: col1I1Title.value.trim(),
+            item1_desc: col1I1Desc.value.trim(),
+            item2_title: col1I2Title.value.trim(),
+            item2_desc: col1I2Desc.value.trim()
+          },
+          col2: {
+            title: col2Title.value.trim(),
+            desc: col2Desc.value.trim(),
+            item1_title: col2I1Title.value.trim(),
+            item1_desc: col2I1Desc.value.trim(),
+            item2_title: col2I2Title.value.trim(),
+            item2_desc: col2I2Desc.value.trim()
+          }
+        };
+        
+        localStorage.setItem('charlotte_campaign_school_impact', JSON.stringify(data));
+        alert('Dashboard content saved successfully! Changes are live on the homepage.');
+      });
+      
+      // Handle reset
+      if (btnReset) {
+        btnReset.addEventListener('click', () => {
+          if (confirm('Are you sure you want to reset all tabs back to the default campaign content?')) {
+            localStorage.setItem('charlotte_campaign_school_impact', JSON.stringify(defaultSchoolImpact));
+            populateFields();
+            alert('Dashboard reset to default campaign content.');
+          }
+        });
+      }
     }
 
     // Initial render
