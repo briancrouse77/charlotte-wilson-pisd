@@ -1,0 +1,121 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  text      String
+  link      String?
+  isActive  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FAQ {
+  id              String   @id @default(cuid())
+  question        String
+  answer          String
+  category        String   // About Charlotte, Priorities, School Board Service, Campaign, Voting Information
+  publishedStatus String   @default("DRAFT") // DRAFT, PUBLISHED
+  orderIndex      Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Priority {
+  id          String   @id @default(cuid())
+  num         Int      @unique // 1 to 6
+  title       String
+  intro       String
+  points      String   // JSON string of array of strings
+  quote       String?
+  challenge   String?
+  principle   String?
+  measurement String?
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Event {
+  id              String   @id @default(cuid())
+  title           String
+  date            DateTime
+  startTime       String?
+  endTime         String?
+  location        String?
+  address         String?
+  description     String?
+  registrationUrl String?
+  image           String?
+  eventType       String   @default("CAMPAIGN") // CAMPAIGN, TIMELINE
+  publishedStatus String   @default("DRAFT") // DRAFT, PUBLISHED
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model CampaignUpdate {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  summary         String
+  body            String
+  featuredImage   String?
+  publicationDate DateTime @default(now())
+  authorLabel     String?  @default("Campaign Staff")
+  seoTitle        String?
+  seoDescription  String?
+  publishedStatus String   @default("DRAFT") // DRAFT, PUBLISHED
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model VolunteerSubmission {
+  id         String   @id @default(cuid())
+  firstName  String
+  lastName   String
+  email      String
+  phone      String?
+  zipCode    String
+  activities String   // JSON string of chosen activities
+  message    String?
+  consent    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  consent   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SystemSettings {
+  id                        String   @id @default("global")
+  heroBadge                 String?
+  heroTitle                 String?
+  heroTagline               String?
+  coreQuestion              String?
+  heroSubhead               String?
+  candidatePerspectiveQuote String?
+  frameworkQuestions        String?  // JSON string array of 5 questions
+  campaignEmail             String?
+  campaignPhone             String?
+  campaignAddress           String?
+  facebookUrl               String?
+  twitterUrl                String?
+  instagramUrl              String?
+  footerDisclaimer          String?
+  biography                 String?
+  siteVisibility            String   @default("PUBLIC") // PUBLIC, MAINTENANCE
+  updatedAt                 DateTime @updatedAt
+}

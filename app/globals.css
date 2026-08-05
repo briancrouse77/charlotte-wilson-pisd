@@ -1,0 +1,271 @@
+:root {
+  /* Primary Palette */
+  --maroon-900: #561927;
+  --maroon-800: #6c2031;
+  --gold-500: #c9a24d;
+  --gold-400: #d9ba72;
+  --charcoal-900: #242424;
+  --charcoal-700: #454545;
+  --cream-100: #faf7f1;
+  --white: #ffffff;
+
+  /* Semantic Map */
+  --color-primary: var(--maroon-900);
+  --color-primary-hover: var(--maroon-800);
+  --color-accent: var(--gold-500);
+  --color-accent-hover: var(--gold-400);
+  --color-text-dark: var(--charcoal-900);
+  --color-text-muted: var(--charcoal-700);
+  --color-bg-light: var(--cream-100);
+  --color-bg-white: var(--white);
+
+  /* Layout Variables */
+  --header-height: 80px;
+  --container-max-width: 1200px;
+  --border-radius: 4px; /* Crisp, slightly rounded (per guidelines: avoid overly rounded) */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  
+  /* Font fallbacks (overwritten in body/layout via variables) */
+  --font-serif-fallback: 'Georgia', 'Times New Roman', serif;
+  --font-sans-fallback: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-script-fallback: 'Brush Script MT', cursive;
+}
+
+/* Accessibility */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--color-accent);
+  color: var(--color-primary);
+  padding: 1rem 2rem;
+  z-index: 10000;
+  transition: top 0.2s;
+  font-weight: 700;
+  text-decoration: underline;
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--color-primary);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text-dark);
+  background: var(--color-bg-white);
+  font-family: var(--font-sans, var(--font-sans-fallback));
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Layout Elements */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif, var(--font-serif-fallback));
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+/* Simple design touch: Maroon section divider on major section titles */
+.section-title-divider::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-primary);
+}
+
+.section-title-divider-center::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-primary);
+}
+
+p {
+  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.75rem;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: 2px solid transparent;
+  min-height: 44px; /* Accessible touch target size */
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--color-primary-hover);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(86, 25, 39, 0.4);
+}
+
+.btn-accent {
+  background-color: var(--color-accent);
+  color: var(--color-primary) !important;
+}
+
+.btn-accent:hover,
+.btn-accent:focus {
+  background-color: var(--color-accent-hover);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(201, 162, 77, 0.4);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary) !important;
+}
+
+.btn-outline:hover,
+.btn-outline:focus {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white) !important;
+  outline: none;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-dark);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  transition: border-color var(--transition-fast);
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(86, 25, 39, 0.15);
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.form-checkbox input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.2rem;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* Global Section Spacing */
+.section {
+  padding: 5rem 0;
+}
+
+.section-light {
+  background-color: var(--color-bg-light);
+}
+
+/* General Accessibility focus indicators */
+*:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
