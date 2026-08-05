@@ -580,6 +580,100 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // ==========================================
+    // PISD Campaign Intelligence Monitor Fetcher
+    // ==========================================
+    const intelList = document.getElementById('intel-list');
+    const intelLoading = document.getElementById('intel-loading');
+    const intelLastScan = document.getElementById('intel-last-scan');
+    
+    if (intelList && intelLoading && intelLastScan) {
+      fetch('intelligence.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('No intelligence scan found');
+          }
+          return response.json();
+        })
+        .then(data => {
+          intelLoading.style.display = 'none';
+          intelList.style.display = 'block';
+          
+          const scanTime = new Date(data.last_scan);
+          intelLastScan.innerText = `Last Scan: ${scanTime.toLocaleString()}`;
+          
+          if (data.articles && data.articles.length > 0) {
+            intelList.innerHTML = '';
+            data.articles.forEach(a => {
+              const itemDiv = document.createElement('div');
+              itemDiv.style.padding = '1rem';
+              itemDiv.style.borderBottom = '1px solid var(--gray-border)';
+              itemDiv.style.display = 'flex';
+              itemDiv.style.justifyContent = 'space-between';
+              itemDiv.style.alignItems = 'center';
+              itemDiv.style.flexWrap = 'wrap';
+              itemDiv.style.gap = '1rem';
+              
+              itemDiv.innerHTML = `
+                <div style="flex: 1; min-width: 250px;">
+                  <h4 style="margin: 0 0 0.25rem; font-family: var(--font-headings);"><a href="${a.link}" target="_blank" style="color: var(--maroon-main); text-decoration: none; font-weight: 700;">${a.title}</a></h4>
+                  <small style="color: var(--charcoal-light);">${a.source} &bull; Published: ${a.pub_date}</small>
+                </div>
+                <div style="background-color: var(--maroon-pale); color: var(--maroon-dark); font-size: 0.8rem; font-weight: 700; padding: 0.35rem 0.75rem; border-radius: var(--border-radius-sm); border: 1px solid var(--maroon-main);">
+                  Actionable Board Update
+                </div>
+              `;
+              intelList.appendChild(itemDiv);
+            });
+            
+            // Check for new intelligence updates since last seen in admin page
+            const lastSeenIntel = localStorage.getItem('last_seen_intel_scan');
+            if (lastSeenIntel) {
+              const lastSeenTime = new Date(lastSeenIntel);
+              if (scanTime > lastSeenTime) {
+                // Show floating banner alert!
+                const alertBanner = document.createElement('div');
+                alertBanner.style.position = 'fixed';
+                alertBanner.style.top = '20px';
+                alertBanner.style.right = '20px';
+                alertBanner.style.backgroundColor = 'var(--maroon-main)';
+                alertBanner.style.color = '#FFFFFF';
+                alertBanner.style.padding = '1rem 1.5rem';
+                alertBanner.style.borderRadius = 'var(--border-radius-md)';
+                alertBanner.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                alertBanner.style.zIndex = '9999';
+                alertBanner.style.fontWeight = '700';
+                alertBanner.style.display = 'flex';
+                alertBanner.style.alignItems = 'center';
+                alertBanner.style.gap = '0.75rem';
+                alertBanner.style.animation = 'fadeIn 0.3s ease';
+                
+                alertBanner.innerHTML = `
+                  <span>🔔 New Campaign Intelligence Updates Discovered!</span>
+                  <button id="close-intel-alert" style="background: none; border: none; color: #FFFFFF; font-weight: 700; cursor: pointer; font-size: 1.1rem;">&times;</button>
+                `;
+                document.body.appendChild(alertBanner);
+                
+                document.getElementById('close-intel-alert').addEventListener('click', () => {
+                  alertBanner.remove();
+                });
+              }
+            }
+            
+            // Update last seen
+            localStorage.setItem('last_seen_intel_scan', data.last_scan);
+          } else {
+            intelList.innerHTML = '<div style="text-align: center; color: var(--charcoal-light); padding: 1rem;">No recent board updates detected. Scanner is active.</div>';
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          intelLoading.style.display = 'none';
+          intelList.style.display = 'block';
+          intelList.innerHTML = '<div style="text-align: center; color: var(--charcoal-light); padding: 1rem;">No intelligence updates found. Scanner is active and scheduled to compile at 8:00 AM.</div>';
+        });
+    }
+
     // Initial render
     renderTable();
   }

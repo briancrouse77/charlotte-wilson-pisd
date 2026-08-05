@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | Charlotte Wilson for Princeton ISD School Board</title>
   <meta name="description" content="Campaign administration dashboard to manage volunteer registrations and coordinates campaign outreach.">
-  <link rel="stylesheet" href="styles.css?v=1.4">
+  <link rel="stylesheet" href="styles.css?v=1.5">
   <style>
     /* Admin-specific styles */
     .admin-stats-grid {
@@ -239,6 +239,40 @@
           <p style="margin: 0.5rem 0 0;">New submissions on the Volunteer page will instantly appear here in real-time, or click 'Load Demo Data' to populate sample registrations.</p>
         </div>
       </div>
+
+      <!-- Campaign Intelligence Monitor -->
+      <div style="margin-top: 3.5rem; margin-bottom: 3.5rem;">
+        <h2 style="font-family: var(--font-headings); color: var(--maroon-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--maroon-main);">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          PISD Campaign Intelligence Monitor
+        </h2>
+        
+        <div style="background-color: var(--white); border: 1px solid var(--gray-border); border-radius: var(--border-radius-md); padding: 2rem; box-shadow: var(--box-shadow);">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gray-border); padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <span style="font-weight: 700; color: var(--charcoal-dark);">Scanner:</span> 
+              <span style="color: #4CAF50; font-weight: 700;">Active (Daily Scan 8:00 AM)</span>
+            </div>
+            <div id="intel-last-scan" style="font-size: 0.9rem; color: var(--charcoal-light);">
+              Last Scan: Loading...
+            </div>
+          </div>
+          
+          <div id="intel-loading" style="text-align: center; padding: 2rem; color: var(--charcoal-light);">
+            Loading latest board updates...
+          </div>
+          
+          <div id="intel-list" style="display: none;">
+            <!-- Populate news items here -->
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -254,6 +288,6 @@
     </div>
   </footer>
 
-  <script src="app.js?v=1.4"></script>
+  <script src="app.js?v=1.5"></script>
 </body>
 </html>
