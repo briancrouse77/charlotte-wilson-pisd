@@ -286,15 +286,18 @@ a:hover {
   font-size: 1.15rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  position: relative;
+  padding-left: 1.75rem;
+  line-height: 1.4;
 }
 
 .hero-content .taglines-list li::before {
   content: '✓';
   color: var(--gold-main);
   font-weight: 800;
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
 }
 
 .hero-actions {
