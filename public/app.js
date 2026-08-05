@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnZipSubmit.style.color = '#FFFFFF';
         voteZip.setAttribute('disabled', 'true');
       } else {
-        alert('Please enter a valid 5-digit ZIP code to check registration details.');
+        alert('Please select a valid Princeton ISD area ZIP code.');
       }
     });
   }
