@@ -5,17 +5,25 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "next": "15.0.0",
-    "react": "19.0.0-rc.1",
-    "react-dom": "19.0.0-rc.1"
+    "@prisma/client": "^6.19.3",
+    "jose": "^6.2.4",
+    "lucide-react": "^1.26.0",
+    "next": "16.2.11",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.11",
+    "prisma": "^6.19.3",
+    "typescript": "^5"
   }
 }
