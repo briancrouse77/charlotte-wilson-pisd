@@ -1044,6 +1044,11 @@ a:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.panel-info-side {
+  border-left: 1px solid var(--gray-border);
+  padding-left: 3rem;
+}
+
 /* Media Queries for Mobile Responsiveness */
 @media (max-width: 992px) {
   h1 { font-size: 3rem; }
@@ -1051,9 +1056,23 @@ a:hover {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+  .hero-image {
+    order: 2;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .hero-content {
+    order: 1;
+  }
   .split-content, .panel-grid, .bio-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+  .panel-info-side {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--gray-border);
+    padding-top: 2rem;
   }
   .comparison-grid {
     grid-template-columns: 1fr;
@@ -1066,6 +1085,21 @@ a:hover {
 @media (max-width: 768px) {
   .section {
     padding: 4rem 0;
+  }
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .hero-content .subtitle {
+    font-size: 1.2rem;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  }
+  .section-subtitle {
+    font-size: 1.1rem;
+  }
+  .dashboard-panel {
+    padding: 1.5rem;
   }
   .nav-menu {
     position: fixed;
