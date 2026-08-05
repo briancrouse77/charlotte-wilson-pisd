@@ -1,5 +1,37 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+
+# Allow AI Search & LLM Engines to crawl for search summaries and citations
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
 
 Sitemap: https://charlotteforprinceton.com/sitemap.xml
