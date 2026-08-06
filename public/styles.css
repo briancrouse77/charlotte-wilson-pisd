@@ -854,9 +854,15 @@ a:hover {
 }
 
 .faq-answer {
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+}
+
+/* Progressive Enhancement: Only collapse when JS class is present */
+.faq-js .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.4s ease;
   padding: 0 2rem;
 }
 
@@ -866,9 +872,10 @@ a:hover {
   color: var(--charcoal-light);
 }
 
-.faq-item.active .faq-answer {
-  max-height: 250px;
+.faq-js .faq-item.active .faq-answer {
+  max-height: 350px;
   padding-top: 0.5rem;
+  padding-bottom: 0;
 }
 
 .faq-icon-arrow {
@@ -1181,5 +1188,75 @@ a:hover {
   }
   .donation-amount-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Sticky CTA Footer */
+.mobile-sticky-cta {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-sticky-cta {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--white);
+    border-top: 1px solid var(--gray-border);
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+    gap: 1rem;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+  
+  .mobile-sticky-cta .btn-primary {
+    flex: 2;
+    padding: 0.8rem;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: var(--border-radius-md);
+  }
+  
+  .mobile-sticky-cta .btn-secondary-outline {
+    flex: 1;
+    padding: 0.8rem;
+    font-size: 1rem;
+    text-align: center;
+    border: 2px solid var(--maroon-main);
+    color: var(--maroon-main);
+    background-color: transparent;
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-weight: 700;
+    box-sizing: border-box;
+  }
+}
+
+/* Focus outlines for accessibility (WCAG AA Contrast Conforming) */
+*:focus-visible {
+  outline: 3px solid var(--maroon-main);
+  outline-offset: 2px;
+}
+
+/* Light outline on dark/colored backgrounds */
+.footer *:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 3px solid var(--gold-main);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 }

@@ -202,6 +202,16 @@ document.addEventListener('DOMContentLoaded', () => {
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('active');
       navMenu.classList.toggle('active');
+      
+      // Hide mobile sticky CTA while menu is open
+      const stickyCta = document.querySelector('.mobile-sticky-cta');
+      if (stickyCta) {
+        if (navMenu.classList.contains('active')) {
+          stickyCta.style.setProperty('display', 'none', 'important');
+        } else {
+          stickyCta.style.removeProperty('display');
+        }
+      }
     });
   }
 
@@ -212,30 +222,57 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navToggle && navMenu) {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
+        
+        // Show mobile sticky CTA when menu closes
+        const stickyCta = document.querySelector('.mobile-sticky-cta');
+        if (stickyCta) {
+          stickyCta.style.removeProperty('display');
+        }
       }
     });
   });
 
   // ==========================================
-  // 2. FAQ Accordion State Management
+  // 2. FAQ Accordion State Management (Progressive Enhancement)
   // ==========================================
+  const faqContainer = document.getElementById('faq');
+  if (faqContainer) {
+    faqContainer.classList.add('faq-js');
+  }
   const faqQuestions = document.querySelectorAll('.faq-question');
   
-  faqQuestions.forEach(question => {
-    question.addEventListener('click', () => {
-      const faqItem = question.parentElement;
-      const isActive = faqItem.classList.contains('active');
+  faqQuestions.forEach((question, index) => {
+    const faqItem = question.parentElement;
+    const answer = faqItem.querySelector('.faq-answer');
+    
+    if (answer) {
+      const answerId = `faq-answer-${index}`;
+      answer.setAttribute('id', answerId);
+      question.setAttribute('aria-controls', answerId);
+      question.setAttribute('aria-expanded', 'false');
       
-      // Close other active FAQs
-      document.querySelectorAll('.faq-item').forEach(item => {
-        item.classList.remove('active');
+      // Hide answers by default when JS runs (progressive enhancement fallback)
+      answer.hidden = true;
+      
+      question.addEventListener('click', () => {
+        const isExpanded = question.getAttribute('aria-expanded') === 'true';
+        
+        // Close other active FAQs
+        faqQuestions.forEach(q => {
+          q.setAttribute('aria-expanded', 'false');
+          const ans = q.parentElement.querySelector('.faq-answer');
+          if (ans) ans.hidden = true;
+          q.parentElement.classList.remove('active');
+        });
+        
+        // Toggle current FAQ
+        if (!isExpanded) {
+          question.setAttribute('aria-expanded', 'true');
+          answer.hidden = false;
+          faqItem.classList.add('active');
+        }
       });
-      
-      // Toggle current FAQ
-      if (!isActive) {
-        faqItem.classList.add('active');
-      }
-    });
+    }
   });
 
   // ==========================================
