@@ -464,6 +464,15 @@ a:hover {
   grid-template-columns: 1.2fr 1fr;
 }
 
+@media (min-width: 993px) {
+  .split-content.reverse > :first-child {
+    order: 2;
+  }
+  .split-content.reverse > :last-child {
+    order: 1;
+  }
+}
+
 .split-image {
   position: relative;
 }
