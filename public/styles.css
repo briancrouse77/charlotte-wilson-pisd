@@ -460,6 +460,10 @@ a:hover {
   align-items: center;
 }
 
+.split-content.reverse {
+  grid-template-columns: 1.2fr 1fr;
+}
+
 .split-image {
   position: relative;
 }
@@ -1067,7 +1071,7 @@ a:hover {
   .hero-content {
     order: 1;
   }
-  .split-content, .panel-grid, .bio-grid {
+  .split-content, .split-content.reverse, .panel-grid, .bio-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }

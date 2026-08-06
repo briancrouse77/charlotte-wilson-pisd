@@ -879,26 +879,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const getTrafficData = () => {
         // Baseline simulated data (historical campaign traffic)
         const baseline = {
-          totalViews: 1482,
-          uniqueUsers: 912,
+          totalViews: 0,
+          uniqueUsers: 0,
           pages: {
-            'index.html': 720,
-            'priorities.html': 382,
-            'volunteer.html': 240,
-            'about.html': 140
+            'index.html': 0,
+            'about.html': 0,
+            'priorities.html': 0,
+            'volunteer.html': 0
           },
-          referrers: {
-            'Direct': 480,
-            'Google': 410,
-            'Facebook': 322,
-            'Twitter': 180,
-            'Princeton Herald': 90
-          },
-          devices: {
-            'Mobile': 918,
-            'Desktop': 484,
-            'Tablet': 80
-          }
+          referrers: {},
+          devices: {}
         };
         
         // Retrieve real logs from localStorage
