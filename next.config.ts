@@ -33,6 +33,11 @@ const nextConfig: NextConfig = {
         source: "/admin",
         destination: "/admin.html",
         permanent: true,
+      },
+      {
+        source: "/social",
+        destination: "/social.html",
+        permanent: true,
       }
     ];
   }
