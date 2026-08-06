@@ -892,6 +892,19 @@ a:hover {
   box-shadow: var(--box-shadow);
 }
 
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.donation-amount-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
 .form-group {
   margin-bottom: 1.75rem;
 }
@@ -1158,5 +1171,15 @@ a:hover {
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+  .form-container {
+    padding: 2.25rem 1.5rem;
+  }
+  .form-row-2col {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .donation-amount-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

@@ -102,7 +102,7 @@
         <h2 class="text-center" style="font-size: 2rem; margin-bottom: 2rem; color: var(--maroon-main);">Volunteer Sign-Up</h2>
         
         <form id="volunteer-form" onsubmit="return false;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div class="form-row-2col">
             <div class="form-group">
               <label for="first-name">First Name *</label>
               <input type="text" id="first-name" class="form-control" required>
@@ -177,7 +177,7 @@
         
         <form id="donation-form" onsubmit="return false;">
           <!-- Suggested Donation Grid -->
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;" id="donation-amounts">
+          <div class="donation-amount-grid" id="donation-amounts">
             <button type="button" class="btn btn-outline" style="padding: 1rem;" data-amount="25">$25</button>
             <button type="button" class="btn btn-outline" style="padding: 1rem;" data-amount="50">$50</button>
             <button type="button" class="btn btn-outline" style="padding: 1rem;" data-amount="100">$100</button>
